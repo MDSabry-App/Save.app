@@ -1,0 +1,2887 @@
+### **البرومبت الأولى للبناء:**
+
+# Build a Production-Ready Developer & Personal Utility Dashboard
+
+Build a modern, practical, desktop-ready web application called:
+
+**DevDesk — Developer & Personal Utility Dashboard**
+
+The application should be a real daily-use productivity tool for developers, creators, freelancers, students, and regular users.
+
+The goal is NOT to create an AI-looking dashboard.
+
+The goal is to create a **human-designed, practical, fast, organized personal utility workspace** that can later be packaged as a Windows/macOS/Linux desktop application using **Electron or Tauri**.
+
+---
+
+# 1. Core Requirements
+
+Build the application as a responsive SPA.
+
+Preferred stack:
+
+- React
+- TypeScript
+- Vite
+- Modern CSS
+- LocalStorage or IndexedDB for persistence
+- Modular component architecture
+- No unnecessary backend
+- No authentication
+- No cloud dependency for core features
+- No Docker
+- No external database required
+
+The application must work locally and remain useful without an internet connection wherever possible.
+
+Structure the code so that future desktop integration with Electron or Tauri is straightforward.
+
+Do NOT build everything as one giant component.
+
+Use reusable components, services, hooks, utilities, types, and storage abstractions.
+
+---
+
+# 2. Design Direction
+
+Create a professional, elegant, human-centered interface.
+
+Avoid:
+
+- excessive glassmorphism
+- excessive gradients
+- futuristic AI aesthetics
+- glowing neon interfaces
+- generic AI dashboard appearance
+- unnecessary animations
+- excessive rounded cards
+- huge empty spaces
+
+The application should feel like a serious desktop productivity application designed by a professional software company.
+
+Design characteristics:
+
+- clean
+- functional
+- calm
+- readable
+- compact
+- professional
+- visually hierarchical
+- excellent spacing
+- excellent typography
+- clear icons
+- subtle shadows
+- restrained animations
+- strong information hierarchy
+
+The interface should feel equally appropriate for:
+
+- developers
+- freelancers
+- students
+- creators
+- power users
+- normal users
+
+Use a consistent design system.
+
+Create:
+
+- design tokens
+- typography scale
+- spacing system
+- border radius system
+- buttons
+- inputs
+- dropdowns
+- dialogs
+- tabs
+- badges
+- cards
+- tables
+- command palette
+- toast notifications
+- empty states
+- loading states
+- error states
+- confirmation dialogs
+
+---
+
+# 3. Layout
+
+Create a professional application shell.
+
+Desktop layout:
+
+Left Sidebar
+
++
+
+Top Header
+
++
+
+Main Content
+
++
+
+Optional right-side contextual panel where appropriate.
+
+Sidebar sections:
+
+## Dashboard
+
+## Developer Tools
+
+- API Keys
+- Prompts
+- MCP
+- Skills
+- JSON Tools
+- Encoders
+- Regex Tester
+
+## Personal
+
+- Password Generator
+- Password Vault
+- Bookmarks
+- Notes
+- Todo
+- Snippets
+
+## Utilities
+
+- Clipboard
+- QR Generator
+- Text Tools
+- File Utilities
+- Unit Converter
+
+## Settings
+
+The sidebar must support:
+
+- collapse/expand
+- active state
+- icons
+- section grouping
+- tooltips when collapsed
+
+---
+
+# 4. Dashboard Home
+
+Create a useful dashboard instead of a decorative dashboard.
+
+Show:
+
+### Quick Actions
+
+- Add API Key
+- Generate Password
+- New Prompt
+- Add MCP
+- Add Skill
+- Add Bookmark
+- New Note
+- New Todo
+
+### Overview Cards
+
+Display:
+
+- API providers
+- API keys
+- Prompts
+- MCP servers
+- Skills
+- Bookmarks
+- Notes
+- Tasks
+
+### Recently Used
+
+Show recently:
+
+- opened prompts
+- tested API keys
+- visited bookmarks
+- modified skills
+- modified MCP configurations
+
+### Favorites
+
+Allow users to pin frequently used resources.
+
+### Quick Tools
+
+Provide shortcuts to the most frequently used tools.
+
+---
+
+# 5. API Key Manager
+
+Create a serious API Key management interface.
+
+Users can:
+
+- add API key
+- edit API key
+- delete API key
+- duplicate API key
+- copy API key
+- hide/show key
+- mark favorite
+- enable/disable key
+- add provider
+- add model
+- add endpoint
+- add environment
+- add notes
+- add tags
+
+Each API entry should support:
+
+```
+Provider
+Name
+API Key
+Base URL
+Model
+Environment
+Tags
+Notes
+Status
+Created
+Last Tested
+```
+
+Example providers:
+
+- OpenAI
+- Google Gemini
+- Anthropic
+- OpenRouter
+- Groq
+- Mistral
+- DeepSeek
+- xAI
+- Moonshot
+- Custom
+
+But users must be able to create custom providers.
+
+---
+
+# 6. API Testing
+
+Every API key should have a:
+
+**Test API**
+
+action.
+
+Create an API testing panel.
+
+Allow the user to configure:
+
+- HTTP method
+- endpoint
+- headers
+- body
+- authentication
+- timeout
+
+Support common API styles.
+
+Display:
+
+- HTTP status
+- response time
+- response headers
+- response body
+- formatted JSON
+- error message
+
+Add:
+
+- Copy response
+- Save request
+- Clear
+- Pretty JSON
+- Raw response
+
+Do not pretend that an API is valid if it cannot actually be tested.
+
+If browser CORS prevents testing, clearly explain the limitation and structure the application so that a future Electron/Tauri native HTTP layer can perform unrestricted requests.
+
+---
+
+# 7. Security
+
+Security is extremely important.
+
+Never expose API keys unnecessarily in the UI.
+
+Default to masked values.
+
+Provide:
+
+- show/hide
+- copy
+- delete confirmation
+- local encryption abstraction
+- secure storage abstraction
+
+Create a storage service so that the current implementation can use browser storage while future Electron/Tauri versions can replace it with:
+
+- OS Keychain
+- Windows Credential Manager
+- macOS Keychain
+- Linux Secret Service
+
+Do NOT claim browser LocalStorage is secure encryption.
+
+Clearly separate:
+
+```
+Storage Layer
+UI Layer
+API Layer
+Security Layer
+```
+
+---
+
+# 8. Password Generator
+
+Create a powerful password generator.
+
+Options:
+
+- length
+- uppercase
+- lowercase
+- numbers
+- symbols
+- exclude ambiguous characters
+- pronounceable mode
+- passphrase mode
+
+Display:
+
+- password strength
+- entropy estimate
+- character count
+
+Actions:
+
+- Generate
+- Copy
+- Regenerate
+- Save
+
+Add password history only if explicitly enabled.
+
+---
+
+# 9. Local Password Vault
+
+Create a local password vault interface.
+
+Fields:
+
+```
+Website
+Username
+Password
+Email
+URL
+Notes
+Tags
+Favorite
+```
+
+Features:
+
+- add
+- edit
+- delete
+- search
+- favorite
+- copy username
+- copy password
+- open website
+- password generator integration
+
+Use a secure-storage abstraction.
+
+Do not claim the browser version provides strong vault security.
+
+Prepare the architecture for native secure storage after conversion to Electron/Tauri.
+
+---
+
+# 10. Prompt Manager
+
+Create a professional Prompt Library.
+
+Users can:
+
+- create prompts
+- edit prompts
+- delete prompts
+- duplicate prompts
+- favorite prompts
+- copy prompts
+- export prompt
+- import prompts
+- search prompts
+- categorize prompts
+- tag prompts
+
+Prompt fields:
+
+```
+Title
+Description
+Prompt
+Category
+Tags
+Variables
+Model
+Notes
+Favorite
+Created
+Updated
+```
+
+Support variables such as:
+
+```
+{{topic}}
+{{language}}
+{{audience}}
+{{project}}
+```
+
+Automatically detect variables.
+
+Create a small prompt execution/test interface where appropriate.
+
+---
+
+# 11. MCP Manager
+
+Create an MCP management section.
+
+Users can save MCP configurations.
+
+Fields:
+
+```
+Name
+Description
+Type
+Command
+Arguments
+Environment Variables
+URL
+Headers
+Notes
+Tags
+Status
+```
+
+Support common MCP concepts such as:
+
+- stdio
+- HTTP
+- SSE where appropriate
+
+Provide:
+
+- copy configuration
+- export
+- import
+- duplicate
+- favorite
+- enable/disable
+- search
+- tags
+
+Add a code/configuration preview.
+
+Do not automatically execute arbitrary MCP commands in the browser.
+
+Design the architecture so native execution can be added later through Tauri/Electron.
+
+---
+
+# 12. Skills Manager
+
+Create a Skills library.
+
+A Skill represents reusable instructions/configuration for development tools and AI agents.
+
+Fields:
+
+```
+Name
+Description
+Category
+Content
+Tags
+Version
+Author
+Tools
+Notes
+Favorite
+```
+
+Features:
+
+- create
+- edit
+- delete
+- duplicate
+- search
+- favorite
+- copy
+- import
+- export
+
+Allow the content to contain Markdown.
+
+Add:
+
+- Markdown preview
+- raw mode
+- copy
+- export as SKILL.md
+
+Provide a dedicated button:
+
+**Export as SKILL.md**
+
+---
+
+# 13. Bookmarks / Favorite Websites
+
+Create a proper bookmark manager.
+
+Fields:
+
+```
+Title
+URL
+Description
+Category
+Tags
+Favorite
+Icon
+Notes
+```
+
+Features:
+
+- add
+- edit
+- delete
+- favorite
+- search
+- tags
+- categories
+- open website
+- copy URL
+
+Automatically attempt to derive the domain/favicon where possible, but gracefully fall back to an icon if unavailable.
+
+Provide categories such as:
+
+- Development
+- AI
+- Documentation
+- Tools
+- Learning
+- Design
+- Productivity
+- Social
+- Other
+
+---
+
+# 14. Notes
+
+Create a lightweight local notes system.
+
+Features:
+
+- create note
+- edit
+- delete
+- pin
+- favorite
+- tags
+- search
+- Markdown
+- preview
+- timestamps
+
+Allow quick notes directly from the dashboard.
+
+---
+
+# 15. Todo Manager
+
+Create a practical task manager.
+
+Features:
+
+- tasks
+- subtasks
+- priority
+- due date
+- tags
+- status
+- completed
+- favorites
+
+Views:
+
+- All
+- Today
+- Upcoming
+- Completed
+
+Keep this intentionally lightweight.
+
+Do not turn it into a complicated project-management system.
+
+---
+
+# 16. Developer Toolbox
+
+Create a Developer Tools section containing small utilities.
+
+Include:
+
+### JSON Formatter
+
+- format
+- minify
+- validate
+- copy
+- download
+
+### Base64
+
+- encode
+- decode
+
+### URL Encoder
+
+- encode
+- decode
+
+### UUID Generator
+
+Generate multiple UUIDs.
+
+### Hash Generator
+
+Support browser-safe hashing where available.
+
+### Regex Tester
+
+Fields:
+
+- regex
+- flags
+- test text
+- matches
+- groups
+
+### Timestamp Converter
+
+Convert:
+
+- Unix timestamp
+- readable date/time
+
+### Color Converter
+
+Convert:
+
+- HEX
+- RGB
+- HSL
+
+### Text Tools
+
+- character count
+- word count
+- line count
+- remove duplicate lines
+- sort lines
+- trim whitespace
+- uppercase
+- lowercase
+- title case
+
+---
+
+# 17. Clipboard Manager
+
+Create a local clipboard history interface where browser capabilities allow it.
+
+Support:
+
+- copied text history
+- search
+- favorites
+- delete
+- copy again
+
+Clearly separate browser limitations from native desktop capabilities.
+
+Prepare the architecture for native clipboard history when packaged as Electron/Tauri.
+
+---
+
+# 18. Snippet Manager
+
+Create a Code Snippets library.
+
+Fields:
+
+```
+Title
+Language
+Description
+Code
+Tags
+Favorite
+```
+
+Features:
+
+- syntax highlighting
+- copy
+- edit
+- delete
+- search
+- categories
+- duplicate
+
+Languages:
+
+- JavaScript
+- TypeScript
+- HTML
+- CSS
+- Python
+- PHP
+- SQL
+- Bash
+- PowerShell
+- JSON
+- YAML
+- Markdown
+
+Allow custom languages.
+
+---
+
+# 19. Import / Export
+
+This is extremely important.
+
+The entire application should support data portability.
+
+Create:
+
+**Export All Data**
+
+Export everything into a structured JSON file.
+
+Create:
+
+**Import Data**
+
+Allow users to restore their data.
+
+Also support per-section export/import where practical.
+
+Examples:
+
+```
+Export Prompts
+Export API Keys
+Export MCPs
+Export Skills
+Export Bookmarks
+Export Notes
+Export Snippets
+```
+
+Use versioned JSON schemas.
+
+Example:
+
+```
+schemaVersion: 1
+```
+
+Prepare migration functions for future versions.
+
+---
+
+# 20. Search
+
+Create a global search system.
+
+Keyboard shortcut:
+
+```
+Ctrl + K
+```
+
+Search across:
+
+- API keys
+- prompts
+- MCPs
+- skills
+- bookmarks
+- notes
+- snippets
+- todos
+
+Results should show:
+
+- item type
+- title
+- category
+- tags
+
+Allow keyboard navigation.
+
+---
+
+# 21. Command Palette
+
+Create a professional command palette.
+
+Examples:
+
+```
+Add API Key
+New Prompt
+Generate Password
+New Bookmark
+New Note
+New Todo
+New Snippet
+Open Settings
+Export Data
+Import Data
+Toggle Theme
+```
+
+Support keyboard navigation.
+
+---
+
+# 22. Favorites
+
+Every major resource should support:
+
+**Favorite**
+
+Create a global Favorites page.
+
+Allow users to quickly access:
+
+- favorite prompts
+- favorite bookmarks
+- favorite API providers
+- favorite MCPs
+- favorite skills
+- favorite snippets
+- favorite notes
+
+---
+
+# 23. Recent Activity
+
+Create a lightweight local activity system.
+
+Track:
+
+- created
+- updated
+- opened
+- copied
+- tested
+
+Do not store sensitive values inside activity logs.
+
+Display:
+
+```
+You copied OpenRouter API key
+You opened Prompt: React Code Review
+You updated MCP: Filesystem
+You created Bookmark: GitHub
+```
+
+---
+
+# 24. Settings
+
+Create a professional Settings page.
+
+Sections:
+
+### Appearance
+
+- Light
+- Dark
+- System
+
+### Language
+
+- English
+- العربية
+
+### Direction
+
+Automatically switch:
+
+```
+LTR
+RTL
+```
+
+Do not mix directions.
+
+### Data
+
+- Export
+- Import
+- Reset
+
+### Security
+
+- Auto-lock
+- Sensitive data visibility
+- Clipboard clearing
+
+### Shortcuts
+
+Display keyboard shortcuts.
+
+### About
+
+- application version
+- schema version
+- technology
+- license placeholder
+
+---
+
+# 25. RTL / LTR Architecture
+
+This is a critical requirement.
+
+The application must fully support:
+
+**English → LTR**
+
+**Arabic → RTL**
+
+Do NOT simply change text alignment.
+
+Implement proper directional layout.
+
+Use:
+
+```
+dir="ltr"
+```
+
+or
+
+```
+dir="rtl"
+```
+
+at the application root.
+
+Use logical CSS properties:
+
+```
+margin-inline
+padding-inline
+inset-inline
+border-inline
+text-align: start
+```
+
+Avoid unnecessary:
+
+```
+left
+right
+```
+
+for layout logic.
+
+Sidebar, icons, navigation, tables, dialogs, forms, breadcrumbs, dropdowns, and command palette must correctly adapt to RTL.
+
+Never mix Arabic RTL content and English LTR layout incorrectly.
+
+User-selected language must persist.
+
+---
+
+# 26. Responsive Design
+
+The application must work on:
+
+- desktop
+- laptop
+- tablet
+- small screens
+
+Prioritize desktop because the application will eventually become a desktop application.
+
+Do not sacrifice desktop usability for mobile design.
+
+---
+
+# 27. Local Data Architecture
+
+Create a storage abstraction such as:
+
+```
+StorageService
+```
+
+with methods similar to:
+
+```
+get()
+set()
+update()
+delete()
+clear()
+export()
+import()
+```
+
+Separate repositories by domain:
+
+```
+ApiKeyRepository
+PromptRepository
+McpRepository
+SkillRepository
+BookmarkRepository
+NoteRepository
+TodoRepository
+SnippetRepository
+PasswordRepository
+SettingsRepository
+ActivityRepository
+```
+
+The UI must not directly manipulate LocalStorage everywhere.
+
+Use a centralized data layer.
+
+Start with IndexedDB or a clean local persistence implementation.
+
+Prepare for future replacement with:
+
+```
+SQLite
+Tauri Store
+Tauri SQL
+Electron IPC
+OS Secure Storage
+```
+
+without rewriting the UI.
+
+---
+
+# 28. Desktop-Ready Architecture
+
+Although this first version runs in the browser, design it specifically for future packaging.
+
+Do NOT use browser-only APIs throughout the application.
+
+Create abstraction layers for:
+
+```
+Storage
+Clipboard
+Filesystem
+HTTP
+Notifications
+Secure Storage
+Shell Commands
+Window Controls
+```
+
+Example conceptual architecture:
+
+```
+UI
+ ↓
+Application Services
+ ↓
+Repositories
+ ↓
+Platform Adapters
+ ↓
+Browser / Electron / Tauri
+```
+
+The browser implementation should be the default.
+
+Electron/Tauri adapters can be added later.
+
+---
+
+# 29. Notifications
+
+Create a toast notification system.
+
+Examples:
+
+```
+API key copied
+Prompt copied
+Bookmark saved
+Data exported successfully
+Password generated
+Changes saved
+```
+
+Do not overuse notifications.
+
+---
+
+# 30. Empty States
+
+Every section must have a useful empty state.
+
+For example:
+
+```
+No API keys yet.
+
+Add your first provider to start managing your API keys.
+
+[ + Add API Key ]
+```
+
+Do not show empty blank pages.
+
+---
+
+# 31. Loading / Error States
+
+Every asynchronous operation should have:
+
+- loading state
+- success state
+- error state
+
+Errors should be understandable.
+
+Avoid exposing raw technical stack traces to normal users.
+
+---
+
+# 32. Accessibility
+
+Follow accessibility best practices.
+
+Include:
+
+- keyboard navigation
+- visible focus states
+- semantic HTML
+- ARIA labels where needed
+- sufficient contrast
+- screen-reader-friendly buttons
+- accessible dialogs
+- accessible forms
+
+Everything important must be usable without a mouse.
+
+---
+
+# 33. Keyboard Shortcuts
+
+Implement:
+
+```
+Ctrl + K       Global Search
+Ctrl + N       New Item
+Ctrl + S       Save
+Ctrl + Shift + P   Command Palette
+Ctrl + /       Search
+Esc            Close Dialog
+```
+
+Adapt shortcuts where necessary.
+
+Display shortcuts in the UI.
+
+---
+
+# 34. Data Safety
+
+Sensitive information must never appear in:
+
+- console logs
+- analytics
+- activity logs
+- error messages
+- URL parameters
+
+Do not include real API keys in demo data.
+
+Use fake placeholders only.
+
+Example:
+
+```
+sk-demo-xxxxxxxx
+```
+
+---
+
+# 35. Demo Data
+
+The first launch should include optional realistic demo data so the interface does not look empty.
+
+Clearly label demo records.
+
+Examples:
+
+- Demo OpenAI provider
+- Demo Gemini provider
+- React Code Review prompt
+- GitHub bookmark
+- Example MCP
+- Example Skill
+- Example snippet
+
+Allow:
+
+**Remove Demo Data**
+
+---
+
+# 36. UX Details
+
+Add:
+
+- confirmation before destructive actions
+- undo where practical
+- duplicate prevention where appropriate
+- automatic timestamps
+- sorting
+- filtering
+- tags
+- favorites
+- keyboard shortcuts
+- context menus where useful
+
+Avoid unnecessary complexity.
+
+Every feature should answer:
+
+**Why would someone use this every day?**
+
+---
+
+# 37. Dashboard Personalization
+
+Allow users to customize the home dashboard.
+
+They can:
+
+- reorder widgets
+- hide widgets
+- pin tools
+- choose quick actions
+
+Persist dashboard preferences locally.
+
+---
+
+# 38. Visual Language
+
+Use a restrained professional color system.
+
+Use one primary accent color and neutral surfaces.
+
+Support both:
+
+- light theme
+- dark theme
+
+Do not make the entire interface colorful.
+
+Status colors should be reserved for:
+
+- success
+- warning
+- error
+- information
+
+Use icons consistently.
+
+Use a modern icon library rather than manually drawn emoji icons.
+
+---
+
+# 39. Performance
+
+The application must feel instant.
+
+Requirements:
+
+- avoid unnecessary re-renders
+- lazy-load large tools
+- virtualize large lists where appropriate
+- debounce search
+- keep data operations efficient
+- avoid loading every tool unnecessarily
+- keep UI responsive
+
+---
+
+# 40. Architecture
+
+Organize the project cleanly.
+
+Suggested structure:
+
+```
+src/
+  components/
+  pages/
+  layouts/
+  features/
+    api-keys/
+    prompts/
+    mcp/
+    skills/
+    bookmarks/
+    passwords/
+    notes/
+    todos/
+    snippets/
+    clipboard/
+    developer-tools/
+  services/
+  repositories/
+  storage/
+  platform/
+  hooks/
+  utils/
+  types/
+  constants/
+  styles/
+```
+
+Each feature should be reasonably isolated.
+
+---
+
+# 41. Important Principle
+
+Do not build fake functionality.
+
+If a browser limitation prevents a feature from working fully:
+
+1. implement the browser-safe version
+2. clearly communicate the limitation
+3. create an abstraction for future native implementation
+
+Do not simulate API testing, filesystem access, shell execution, or secure storage.
+
+---
+
+# 42. Final Quality Requirements
+
+Before considering the application complete:
+
+Check:
+
+- all navigation works
+- all buttons work
+- all forms work
+- data persists after refresh
+- CRUD operations work
+- search works
+- filtering works
+- favorites work
+- import works
+- export works
+- themes work
+- Arabic works
+- RTL works
+- English works
+- LTR works
+- keyboard shortcuts work
+- dialogs work
+- error states work
+- empty states work
+- responsive layout works
+- no console errors
+- no broken links
+- no placeholder buttons
+- no fake functionality
+
+Run a final UI/UX consistency pass.
+
+Fix visual inconsistencies.
+
+Fix spacing inconsistencies.
+
+Fix typography inconsistencies.
+
+Fix RTL/LTR issues.
+
+Fix responsive issues.
+
+Remove unnecessary components and duplicated logic.
+
+---
+
+# 43. Most Important Goal
+
+The final result should NOT look like a generated demo.
+
+It should look like a real software product that someone could install and use every day.
+
+Think of it as:
+
+**A personal command center for everything a modern developer or power user needs.**
+
+It should be:
+
+**Fast + Practical + Private + Organized + Local-first + Desktop-ready**
+
+Build the complete working application now.
+
+Do not only create mockups.
+
+Implement the actual functionality and persistence for the browser version.
+
+At the end, provide a concise summary of:
+
+1. implemented features
+2. project architecture
+3. storage approach
+4. browser limitations
+5. what is already prepared for Electron/Tauri
+6. how to run the project
+
+**================================================================================================================================**
+
+### **البرومبت الثانية للتحويل:**
+
+# Convert the Existing Web Application into a Production-Ready Windows Desktop App Using Electron
+
+You are now working on the **existing, fully built and functional DevDesk application**.
+
+The application currently works as a web application.
+
+Your task is to convert the EXISTING application into a **real Windows desktop application using Electron**.
+
+This is a migration and packaging task.
+
+## CRITICAL RULE
+
+### DO NOT redesign, rewrite, simplify, remove, replace, or downgrade the existing application.
+
+The existing application is already designed and implemented.
+
+Your job is to preserve it and make it work as a native-feeling desktop application.
+
+Do NOT:
+
+- redesign the UI
+- change the visual style
+- replace components unnecessarily
+- remove features
+- remove pages
+- remove settings
+- remove data
+- remove RTL support
+- remove LTR support
+- remove dark mode
+- remove light mode
+- remove keyboard shortcuts
+- remove search
+- remove command palette
+- remove import/export
+- remove API management
+- remove password functionality
+- remove Prompts
+- remove MCP
+- remove Skills
+- remove Bookmarks
+- remove Notes
+- remove Todos
+- remove Snippets
+- remove Developer Tools
+- remove Favorites
+- remove Recent Activity
+- replace existing functionality with mock functionality
+
+Preserve ALL existing functionality.
+
+---
+
+# 1. FIRST: INSPECT THE EXISTING PROJECT
+
+Before changing anything:
+
+Analyze the complete existing project.
+
+Inspect:
+
+- package.json
+- source files
+- components
+- pages
+- routes
+- services
+- storage
+- repositories
+- hooks
+- utilities
+- types
+- styles
+- assets
+- icons
+- configuration
+- build scripts
+- environment variables
+- database/storage implementation
+
+Understand how the existing application works.
+
+Create a mental architecture map before modifying the project.
+
+Do not immediately start changing files.
+
+Identify:
+
+1. frontend entry point
+2. build command
+3. development server command
+4. production build command
+5. storage mechanism
+6. API testing implementation
+7. file operations
+8. clipboard functionality
+9. import/export functionality
+10. sensitive-data handling
+11. routing
+12. localization
+13. RTL/LTR implementation
+
+---
+
+# 2. RUN THE EXISTING WEB APPLICATION FIRST
+
+Before Electron conversion, start the existing application exactly as it currently exists.
+
+Run the local development server.
+
+Determine the actual local URL and port.
+
+For example:
+
+```
+http://localhost:XXXX
+```
+
+Do NOT assume the port.
+
+Open and test the application.
+
+Verify that the existing web version works BEFORE beginning the Electron migration.
+
+---
+
+# 3. FULL FUNCTIONALITY TEST BEFORE MIGRATION
+
+Perform a complete smoke test of the existing application.
+
+Test every major area.
+
+## Dashboard
+
+Verify:
+
+- dashboard loads
+- statistics work
+- quick actions work
+- recent items work
+- favorites work
+- navigation works
+
+## API Keys
+
+Test:
+
+- add provider
+- add API key
+- edit
+- delete
+- copy
+- show/hide
+- favorite
+- search
+- filter
+- API test
+- endpoint
+- model
+- notes
+- tags
+
+## Password Generator
+
+Test:
+
+- generation
+- length
+- uppercase
+- lowercase
+- numbers
+- symbols
+- strength
+- copy
+- save
+
+## Password Vault
+
+Test:
+
+- add
+- edit
+- delete
+- search
+- copy username
+- copy password
+- favorite
+- open URL
+
+## Prompts
+
+Test:
+
+- create
+- edit
+- delete
+- duplicate
+- copy
+- favorite
+- search
+- tags
+- categories
+- variables
+- import
+- export
+
+## MCP
+
+Test:
+
+- create
+- edit
+- delete
+- duplicate
+- copy
+- export
+- import
+- favorite
+- search
+- configuration display
+
+## Skills
+
+Test:
+
+- create
+- edit
+- delete
+- duplicate
+- search
+- copy
+- favorite
+- Markdown
+- export as SKILL.md
+
+## Bookmarks
+
+Test:
+
+- create
+- edit
+- delete
+- favorite
+- search
+- tags
+- open URL
+- copy URL
+
+## Notes
+
+Test:
+
+- create
+- edit
+- delete
+- search
+- pin
+- favorite
+- Markdown
+
+## Todos
+
+Test:
+
+- create
+- edit
+- delete
+- complete
+- priority
+- due date
+- filters
+
+## Snippets
+
+Test:
+
+- create
+- edit
+- delete
+- copy
+- search
+- syntax highlighting
+- favorite
+
+## Developer Tools
+
+Test every existing tool.
+
+## Import / Export
+
+Test:
+
+- export all
+- import all
+- section export
+- section import
+- data integrity after import
+
+## Search
+
+Test:
+
+- Ctrl + K
+- global search
+- keyboard navigation
+- result opening
+
+## Command Palette
+
+Test:
+
+- opening
+- keyboard navigation
+- actions
+
+## Themes
+
+Test:
+
+- Light
+- Dark
+- System
+
+## Languages
+
+Test:
+
+- English
+- Arabic
+
+## Direction
+
+Test:
+
+- LTR
+- RTL
+
+Ensure the entire layout changes direction correctly.
+
+Do NOT mix RTL and LTR.
+
+---
+
+# 4. CREATE A BASELINE
+
+Before migration, record the current state.
+
+Create a development checklist containing:
+
+```
+Feature
+Current Status
+Test Result
+Migration Status
+Desktop Test Result
+```
+
+The goal is to ensure that nothing is accidentally lost during conversion.
+
+---
+
+# 5. ELECTRON ARCHITECTURE
+
+Add Electron around the existing application.
+
+Use a clean architecture:
+
+```
+DevDesk
+│
+├── Renderer
+│   └── Existing React Application
+│
+├── Electron Main Process
+│
+├── Preload
+│
+├── IPC
+│
+└── Native Platform Services
+```
+
+The existing React application should remain the renderer/UI.
+
+Do NOT rewrite the renderer unnecessarily.
+
+---
+
+# 6. ELECTRON MAIN PROCESS
+
+Create a proper Electron main process.
+
+Responsibilities:
+
+- create BrowserWindow
+- manage application lifecycle
+- manage native dialogs
+- manage filesystem operations
+- manage native HTTP requests where required
+- manage secure storage integration
+- manage clipboard integration
+- manage native notifications where appropriate
+- manage application menus
+- manage window state
+- manage IPC handlers
+- manage desktop-specific functionality
+
+Keep the main process modular.
+
+Do not put everything inside one huge `main.ts`.
+
+---
+
+# 7. PRELOAD
+
+Create a dedicated preload layer.
+
+Use Electron's secure architecture.
+
+Enable:
+
+```
+contextIsolation: true
+nodeIntegration: false
+```
+
+Do not expose `ipcRenderer` directly to the renderer.
+
+Do not expose unrestricted Node.js APIs.
+
+Use `contextBridge` with narrowly scoped methods.
+
+Example conceptual API:
+
+```
+window.desktopAPI.storage
+window.desktopAPI.clipboard
+window.desktopAPI.files
+window.desktopAPI.http
+window.desktopAPI.notifications
+window.desktopAPI.app
+```
+
+Expose only the exact operations the application needs.
+
+Do not expose:
+
+```
+require
+ipcRenderer
+child_process
+fs
+shell
+```
+
+directly to the renderer.
+
+Use secure IPC boundaries.
+
+---
+
+# 8. DO NOT BREAK THE EXISTING WEB VERSION
+
+The application must continue working in browser mode.
+
+The architecture should support:
+
+```
+Browser
+Electron
+```
+
+through platform adapters.
+
+For example:
+
+```
+StorageAdapter
+
+BrowserStorageAdapter
+ElectronStorageAdapter
+```
+
+and:
+
+```
+ClipboardAdapter
+
+BrowserClipboardAdapter
+ElectronClipboardAdapter
+```
+
+and:
+
+```
+HttpAdapter
+
+BrowserHttpAdapter
+ElectronHttpAdapter
+```
+
+The UI should not need to know which platform it is running on.
+
+---
+
+# 9. ELECTRON DETECTION
+
+Create a safe platform detection mechanism.
+
+Example conceptual states:
+
+```
+isBrowser
+isElectron
+isDesktop
+```
+
+Do not scatter Electron-specific checks throughout React components.
+
+Centralize platform detection.
+
+---
+
+# 10. STORAGE
+
+Preserve all existing user data.
+
+This is extremely important.
+
+If the browser application currently uses:
+
+- IndexedDB
+- LocalStorage
+- another local persistence mechanism
+
+DO NOT destroy it.
+
+Implement a migration path.
+
+Desktop mode should eventually use a more appropriate local storage layer where necessary.
+
+Prefer a structure compatible with:
+
+```
+SQLite
+```
+
+for future expansion.
+
+Sensitive data should have a secure-storage abstraction.
+
+Do not claim LocalStorage is encrypted.
+
+---
+
+# 11. API KEYS
+
+The API Key Manager must continue to work exactly as before.
+
+Preserve:
+
+- providers
+- API keys
+- models
+- endpoints
+- tags
+- notes
+- favorites
+- status
+- testing
+
+Desktop mode may use Electron's native HTTP capabilities for API testing when browser CORS prevents direct requests.
+
+This must be implemented transparently.
+
+The user should not need to change the UI workflow.
+
+Example:
+
+```
+Test API
+    ↓
+Platform HTTP Adapter
+    ↓
+Browser HTTP
+OR
+Electron Native HTTP
+```
+
+If Electron performs the request, return:
+
+- status
+- response time
+- headers
+- body
+- error
+
+to the renderer through a controlled IPC API.
+
+---
+
+# 12. PASSWORD VAULT SECURITY
+
+The desktop version should be prepared for secure native storage.
+
+Create a secure storage abstraction.
+
+Preferred architecture:
+
+```
+Renderer
+ ↓
+Preload
+ ↓
+IPC
+ ↓
+Secure Storage Service
+ ↓
+Windows Credential Manager / OS secure storage
+```
+
+Do NOT store passwords or API keys in plaintext files unnecessarily.
+
+Do NOT expose secrets through IPC logs.
+
+Do NOT log sensitive values.
+
+Do NOT include API keys or passwords in error messages.
+
+---
+
+# 13. FILESYSTEM FEATURES
+
+Where the existing application has file-related functionality, implement native filesystem access through Electron.
+
+Use:
+
+```
+Main Process
+```
+
+for filesystem access.
+
+The renderer must request operations through the preload bridge.
+
+Examples:
+
+- export JSON
+- import JSON
+- export Markdown
+- save SKILL.md
+- save files
+- open files
+- choose directory
+- choose file
+
+Use native Windows dialogs where appropriate.
+
+---
+
+# 14. CLIPBOARD
+
+Improve clipboard functionality in desktop mode.
+
+Use Electron/native clipboard functionality where appropriate.
+
+Existing browser behavior must remain available when running in browser mode.
+
+Preserve:
+
+- copy API key
+- copy password
+- copy prompt
+- copy skill
+- copy MCP
+- copy snippet
+- copy URL
+- clipboard manager
+
+Do not break existing copy buttons.
+
+---
+
+# 15. DESKTOP NOTIFICATIONS
+
+Where appropriate, add native Windows notifications.
+
+Examples:
+
+```
+Task completed
+Export completed
+Backup completed
+API test completed
+```
+
+Do not spam notifications.
+
+Make notifications optional through Settings.
+
+---
+
+# 16. WINDOW
+
+Create a professional desktop window.
+
+Recommended defaults:
+
+```
+Width: 1440
+Height: 900
+Minimum Width: 1100
+Minimum Height: 700
+```
+
+Adjust these according to the existing application's requirements.
+
+Remember the user's last window size and position where safe and practical.
+
+Do not distort the existing UI.
+
+---
+
+# 17. APPLICATION TITLE
+
+Use:
+
+**DevDesk**
+
+Set:
+
+- application name
+- product name
+- executable name
+- installer name
+
+consistently.
+
+Do not leave:
+
+```
+Electron
+Vite
+React
+My App
+```
+
+as the product name.
+
+---
+
+# 18. APPLICATION ICON
+
+Create or add a professional application icon specifically for DevDesk.
+
+The icon should communicate:
+
+- developer tools
+- productivity
+- organized workspace
+
+Keep it simple and recognizable.
+
+It must work correctly as a Windows application icon.
+
+Create the required Windows icon assets.
+
+Use an `.ico` file containing appropriate resolutions.
+
+Configure the icon for:
+
+- executable
+- installer
+- desktop shortcut
+- Start Menu shortcut
+- application window where supported
+
+Do not use a generic Electron icon.
+
+---
+
+# 19. WINDOWS SHORTCUT
+
+The installer must create a normal Windows desktop shortcut.
+
+The shortcut should:
+
+- use the DevDesk icon
+- launch the installed application
+- use the correct executable
+- have the correct product name
+
+Also create a Start Menu shortcut.
+
+---
+
+# 20. INSTALLER
+
+Create a proper Windows installer.
+
+The final product must be installable by a normal Windows user.
+
+The user should be able to:
+
+1. double-click the installer
+2. install DevDesk
+3. choose installation options if applicable
+4. create Desktop shortcut
+5. create Start Menu shortcut
+6. launch DevDesk
+
+The application must then run without requiring:
+
+- Node.js
+- npm
+- Vite
+- React development server
+- PowerShell
+- terminal
+- development dependencies
+
+The installed application must be self-contained.
+
+---
+
+# 21. FINAL OUTPUT
+
+Produce a Windows installer in:
+
+```
+.exe
+```
+
+The final output should be placed in a clear directory such as:
+
+```
+release/
+```
+
+Example:
+
+```
+release/
+    DevDesk-Setup-x.x.x.exe
+```
+
+Also generate a packaged Windows application for testing before finalizing the installer.
+
+---
+
+# 22. IMPORTANT: LOCAL SERVER VALIDATION
+
+Before packaging the final application, you MUST run the original web application on its local development server.
+
+For example:
+
+```
+npm run dev
+```
+
+or whatever command the existing project actually uses.
+
+Determine the actual URL and port.
+
+Open the application.
+
+Perform the complete functionality test.
+
+Do not proceed directly to packaging without testing the application first.
+
+---
+
+# 23. ELECTRON DEVELOPMENT TEST
+
+After integrating Electron:
+
+Run the Electron development application.
+
+Verify that:
+
+- Electron launches
+- React loads
+- routes work
+- navigation works
+- styling is unchanged
+- icons load
+- fonts load
+- assets load
+- local storage works
+- API testing works
+- clipboard works
+- import works
+- export works
+- dialogs work
+- keyboard shortcuts work
+- command palette works
+- themes work
+- Arabic works
+- RTL works
+- English works
+- LTR works
+
+---
+
+# 24. IMPORTANT: TEST THE REAL INSTALLED APPLICATION
+
+Do NOT consider the project finished merely because:
+
+```
+npm run dev
+```
+
+works.
+
+The final test must use the actual packaged Windows application.
+
+After creating the installer:
+
+1. install it
+2. launch it from the Desktop shortcut
+3. launch it from Start Menu
+4. close it
+5. launch it again
+6. test persistence
+7. test all important features
+8. verify data remains available
+9. verify icon
+10. verify window
+11. verify application title
+12. verify no development server is required
+
+The final installed application must work independently.
+
+---
+
+# 25. OFFLINE TEST
+
+Close the development server completely.
+
+Then launch the installed `.exe`.
+
+The application must still open and operate for all features that are designed to work locally.
+
+The application must NOT depend on:
+
+```
+localhost
+Vite
+npm
+development server
+```
+
+after installation.
+
+Only features that inherently require an Internet connection, such as testing an external API or opening an external website, may require Internet access.
+
+---
+
+# 26. DATA PERSISTENCE TEST
+
+Create test data inside the installed application:
+
+```
+API Key
+Prompt
+MCP
+Skill
+Bookmark
+Password entry
+Note
+Todo
+Snippet
+```
+
+Close the application.
+
+Reopen the installed application.
+
+Verify every record remains available.
+
+Then:
+
+1. export the data
+2. delete test records
+3. import the backup
+4. verify restoration
+
+Do not ship the application until this works.
+
+---
+
+# 27. RTL / LTR FINAL TEST
+
+Perform a dedicated test.
+
+## English
+
+Verify:
+
+```
+dir="ltr"
+```
+
+The entire interface must be LTR.
+
+## Arabic
+
+Verify:
+
+```
+dir="rtl"
+```
+
+The entire interface must be RTL.
+
+Check:
+
+- sidebar
+- header
+- dialogs
+- forms
+- tables
+- dropdowns
+- search
+- command palette
+- cards
+- buttons
+- icons
+- breadcrumbs
+- navigation
+- settings
+
+Do not mix directions.
+
+---
+
+# 28. API TEST FINAL VALIDATION
+
+Test at least one valid external API if credentials are available.
+
+Verify:
+
+```
+Request
+ ↓
+Electron HTTP layer
+ ↓
+Response
+ ↓
+UI
+```
+
+Test:
+
+- success
+- invalid API key
+- invalid endpoint
+- timeout
+- network failure
+- malformed response
+
+Errors must be displayed clearly.
+
+Never expose secrets in logs.
+
+---
+
+# 29. BUILD VALIDATION
+
+Before generating the final installer:
+
+Run all available project checks.
+
+Examples:
+
+```
+npm run lint
+npm run typecheck
+npm test
+npm run build
+```
+
+Only execute scripts that actually exist in the project.
+
+Do not invent scripts.
+
+Fix all:
+
+- TypeScript errors
+- build errors
+- lint errors
+- runtime errors
+- Electron errors
+
+Do not ignore warnings that affect functionality.
+
+---
+
+# 30. PRODUCTION BUILD
+
+Create a production renderer build.
+
+Then package it with Electron.
+
+The production application must load the built renderer locally.
+
+Do NOT point the final production application to:
+
+```
+http://localhost:XXXX
+```
+
+The final packaged application must load its bundled production assets.
+
+Development server usage is ONLY for validation during development.
+
+---
+
+# 31. SECURITY
+
+Follow Electron security best practices.
+
+Use:
+
+```
+contextIsolation: true
+nodeIntegration: false
+```
+
+Use a controlled preload bridge.
+
+Do not expose arbitrary IPC.
+
+Validate IPC arguments.
+
+Do not execute arbitrary shell commands from renderer input.
+
+Do not load arbitrary remote code with Node.js access.
+
+Do not disable Electron security mechanisms simply to make a feature work.
+
+If a feature requires native access, implement it through:
+
+```
+Renderer
+ ↓
+Preload
+ ↓
+Validated IPC
+ ↓
+Main Process
+```
+
+---
+
+# 32. REMOTE WEBSITES
+
+The application may open external websites when the user explicitly requests it.
+
+For example:
+
+- opening a bookmark
+- opening an API documentation URL
+
+Do not load arbitrary remote websites inside the main application window unnecessarily.
+
+Keep the main application based on local packaged assets.
+
+---
+
+# 33. AUTO-UPDATE
+
+Do NOT implement auto-update yet unless it already exists in the project.
+
+Prepare the application metadata for future updates.
+
+The first version should focus on:
+
+```
+stable
+installable
+functional
+self-contained
+```
+
+---
+
+# 34. VERSION
+
+Set an initial production version such as:
+
+```
+1.0.0
+```
+
+unless the existing project already has a versioning scheme.
+
+Keep the version visible in:
+
+**Settings → About**
+
+---
+
+# 35. FINAL QUALITY AUDIT
+
+Before declaring success, perform a complete audit.
+
+Verify:
+
+### UI
+
+- unchanged design
+- unchanged layout
+- unchanged colors
+- unchanged typography
+- unchanged navigation
+- unchanged RTL/LTR behavior
+- unchanged themes
+
+### Functionality
+
+- all features work
+- CRUD operations work
+- search works
+- favorites work
+- import/export works
+- API testing works
+- password generation works
+- password vault works
+- prompts work
+- MCP works
+- Skills work
+- bookmarks work
+- notes work
+- todos work
+- snippets work
+- developer tools work
+- clipboard works
+
+### Desktop
+
+- `.exe` exists
+- installer works
+- installation works
+- desktop shortcut works
+- Start Menu shortcut works
+- icon works
+- application starts without Node.js
+- application starts without npm
+- application starts without Vite
+- application starts without local development server
+- data persists
+- uninstall works
+
+### Security
+
+- contextIsolation enabled
+- nodeIntegration disabled
+- preload used
+- IPC restricted
+- secrets not logged
+- no unnecessary remote code execution
+- no development URLs in production
+
+---
+
+# 36. FINAL DELIVERABLES
+
+At the end, provide:
+
+```
+1. Source project with Electron integration
+2. Production build
+3. Windows installer (.exe)
+4. Application icon
+5. Desktop shortcut configuration
+6. Start Menu configuration
+7. Build configuration
+```
+
+Create a clear output folder:
+
+```
+release/
+```
+
+with the final installer.
+
+---
+
+# 37. FINAL REPORT
+
+After everything is completed, report:
+
+### Existing Web App
+
+- server URL
+- test result
+- features verified
+
+### Electron
+
+- Electron version
+- architecture
+- preload
+- IPC
+- native integrations
+
+### Packaging
+
+- installer type
+- output filename
+- application version
+- Windows architecture
+
+### Testing
+
+Report:
+
+```
+Web application test: PASS/FAIL
+Electron development test: PASS/FAIL
+Production build: PASS/FAIL
+Installed EXE test: PASS/FAIL
+Desktop shortcut: PASS/FAIL
+Icon: PASS/FAIL
+Persistence: PASS/FAIL
+Import/Export: PASS/FAIL
+API testing: PASS/FAIL
+RTL: PASS/FAIL
+LTR: PASS/FAIL
+Dark mode: PASS/FAIL
+Light mode: PASS/FAIL
+Offline startup: PASS/FAIL
+```
+
+Do not say PASS unless you actually tested it.
+
+If something fails, fix it before continuing.
+
+Do not hide failures.
+
+---
+
+# FINAL RULE
+
+The most important requirement is:
+
+**PRESERVE THE EXISTING APPLICATION.**
+
+This is NOT a redesign.
+
+This is NOT a rewrite.
+
+This is NOT a simplified Electron demo.
+
+This is a production migration:
+
+```
+Existing Web Application
+        ↓
+Electron Desktop Layer
+        ↓
+Native Desktop Capabilities
+        ↓
+Production Packaging
+        ↓
+Windows Installer
+        ↓
+Desktop Shortcut
+        ↓
+Real Standalone DevDesk Application
+```
+
+The final `.exe` must be a real installable Windows application that launches directly from the desktop and retains the complete functionality and appearance of the existing application.
+
+Start by inspecting and running the existing project.
+
+Do not begin packaging until the existing local web version has been verified.
+
+Do not declare completion until the actual installed `.exe` has been launched and tested independently from the development server.

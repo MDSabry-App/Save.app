@@ -1,0 +1,6 @@
+{
+  "name": "DevDesk — Developer & Personal Utility Dashboard",
+  "description": "A modern, practical, desktop-ready workspace for developers and power users featuring API management, prompts, MCP, skills, password vault, bookmarks, notes, and developer utilities with full RTL/LTR support.",
+  "requestFramePermissions": ["clipboard-read", "clipboard-write"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

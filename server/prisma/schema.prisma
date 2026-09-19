@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String // Hashed password (bcrypt)
+  salt      String   @unique // Random salt for key derivation (E2EE)
+  createdAt DateTime @default(now())
+
+  // One-to-many relationship with DataBlock
+  dataBlocks DataBlock[]
+}
+
+model DataBlock {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type      String   // e.g., "api_key", "vault", "notes", etc.
+  data      String   // ENCRYPTED data (AES-256-GCM)
+  iv        String   // Initialization Vector (random per record)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@unique([userId, type]) // Single block per type per user (for simplicity)
+}

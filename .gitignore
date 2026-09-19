@@ -1,0 +1,16 @@
+node_modules/
+build/
+!build/icon.ico
+!build/icon.png
+!build/icon-*.png
+dist/
+release/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+*.sqlite
+*.sqlite3
+.idea/
+.vscode/
