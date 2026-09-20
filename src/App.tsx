@@ -1,5 +1,7 @@
 import React from 'react';
 import { AppProvider, useApp } from './context/AppContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
+import { AuthBootScreen, AuthScreen } from './components/AuthScreen';
 import { AppShell } from './components/layout/AppShell';
 import { DashboardView } from './components/views/DashboardView';
 import { ApiKeysView } from './components/views/ApiKeysView';
@@ -56,12 +58,29 @@ const MainViewRenderer: React.FC = () => {
   }
 };
 
-export default function App() {
+/**
+ * Gate: the workspace (and its provider) only mounts once the vault has been
+ * unlocked, so `AppProvider` can read the already-hydrated state synchronously.
+ */
+const AuthenticatedApp: React.FC = () => {
+  const { status } = useAuth();
+
+  if (status === 'initializing') return <AuthBootScreen />;
+  if (status !== 'authenticated') return <AuthScreen />;
+
   return (
     <AppProvider>
       <AppShell>
         <MainViewRenderer />
       </AppShell>
     </AppProvider>
+  );
+};
+
+export default function App() {
+  return (
+    <AuthProvider>
+      <AuthenticatedApp />
+    </AuthProvider>
   );
 }

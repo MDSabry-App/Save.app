@@ -1,0 +1,24 @@
+﻿# Files excluded from Vercel uploads.
+# The deployment is the SPA (built from src/ by `npm run build`) plus the
+# serverless functions in api/. Everything else is local-only.
+
+.git
+.github
+node_modules
+release
+build
+dist
+coverage
+server
+docker-compose.yml
+Prompt.txt
+*.log
+.env
+.env.*
+!.env.example
+*.sqlite
+*.sqlite3
+.vercel
+# Windows-only npm `script-shell` override (absolute Git Bash path). Uploading it
+# makes Vercel's Linux builder spawn a Windows binary and fail with ENOENT.
+.npmrc

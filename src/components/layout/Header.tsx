@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useApp } from '../../context/AppContext';
+import { useAuth } from '../../context/AuthContext';
 import {
   Search,
   Command,
@@ -16,6 +17,12 @@ import {
   FileText,
   CheckSquare,
   Monitor,
+  RefreshCw,
+  LogOut,
+  Cloud,
+  CloudOff,
+  Loader2,
+  CircleAlert,
 } from 'lucide-react';
 import { platform } from '../../platform';
 
@@ -32,15 +39,23 @@ export const Header: React.FC = () => {
     updateSettings,
     addToast,
     t,
+    syncNow,
   } = useApp();
 
+  const { user, syncStatus, logout } = useAuth();
+
   const [isQuickAddOpen, setIsQuickAddOpen] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
   const quickAddRef = useRef<HTMLDivElement>(null);
+  const accountRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (quickAddRef.current && !quickAddRef.current.contains(event.target as Node)) {
         setIsQuickAddOpen(false);
+      }
+      if (accountRef.current && !accountRef.current.contains(event.target as Node)) {
+        setIsAccountOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -240,7 +255,97 @@ export const Header: React.FC = () => {
             <Moon className="w-4 h-4 text-neutral-600 hover:text-neutral-800 transition-colors" />
           )}
         </button>
+
+        {/* Account & sync */}
+        <div className="relative" ref={accountRef}>
+          <button
+            id="account-menu-btn"
+            onClick={() => setIsAccountOpen((prev) => !prev)}
+            className="flex items-center gap-1.5 px-2 py-1.5 rounded-lg text-xs font-medium text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
+            title={user?.email || t('authSignIn')}
+          >
+            <SyncDot state={syncStatus.state} />
+            <span className="hidden sm:inline text-[11px] font-semibold">
+              {(user?.email || '—').slice(0, 1).toUpperCase()}
+            </span>
+          </button>
+
+          {isAccountOpen && (
+            <div className="absolute end-0 mt-1.5 w-64 bg-white dark:bg-neutral-900 border border-neutral-200 dark:border-neutral-800 rounded-xl shadow-xl py-1 z-40">
+              <div className="px-3 py-2 border-b border-neutral-100 dark:border-neutral-800">
+                <div className="text-[10px] uppercase tracking-wide text-neutral-400">
+                  {t('authSignedInAs')}
+                </div>
+                <div className="text-xs font-medium text-neutral-800 dark:text-neutral-200 truncate">
+                  {user?.email || '—'}
+                </div>
+                <div className="mt-1.5 flex items-center gap-1.5 text-[10px] text-neutral-500 dark:text-neutral-400">
+                  <SyncDot state={syncStatus.state} />
+                  <span>{syncStatusLabel(syncStatus.state, t)}</span>
+                  {syncStatus.pendingPush && <span>· {t('syncPending')}</span>}
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  void syncNow();
+                  setIsAccountOpen(false);
+                  addToast({ message: t('syncSyncing'), type: 'info' });
+                }}
+                className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-neutral-700 dark:text-neutral-200 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-start cursor-pointer"
+              >
+                <RefreshCw className="w-3.5 h-3.5 text-blue-500" />
+                <span>{t('syncSyncing').replace('...', '')}</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  setIsAccountOpen(false);
+                  logout();
+                }}
+                className="w-full flex items-center gap-2.5 px-3 py-2 text-xs text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/40 text-start cursor-pointer"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>{t('authSignOut')}</span>
+              </button>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
 };
+
+const SyncDot: React.FC<{ state: SyncStatusLike }> = ({ state }) => {
+  if (state === 'syncing') {
+    return <Loader2 className="w-3.5 h-3.5 text-blue-500 animate-spin" />;
+  }
+  if (state === 'error' || state === 'unverified') {
+    return <CircleAlert className="w-3.5 h-3.5 text-amber-500" />;
+  }
+  if (state === 'offline' || state === 'disabled' || state === 'locked') {
+    return <CloudOff className="w-3.5 h-3.5 text-neutral-400" />;
+  }
+  return <Cloud className="w-3.5 h-3.5 text-emerald-500" />;
+};
+
+type SyncStatusLike = ReturnType<typeof useAuth>['syncStatus']['state'];
+
+function syncStatusLabel(state: SyncStatusLike, t: (key: any) => string): string {
+  switch (state) {
+    case 'syncing':
+      return t('syncSyncing');
+    case 'offline':
+      return t('syncOffline');
+    case 'error':
+      return t('syncError');
+    case 'unverified':
+      return t('syncUnverified');
+    case 'disabled':
+      return t('syncDisabled');
+    case 'locked':
+      return t('syncOffline');
+    default:
+      return t('syncIdle');
+  }
+}

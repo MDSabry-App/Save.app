@@ -263,8 +263,8 @@ export const demoNotes: NoteItem[] = [
     content: `# DevDesk Architecture & Native Roadmap
 
 ### 1. Storage Strategy
-- Browser mode: IndexedDB + LocalStorage repository layer.
-- Electron/Tauri mode: Local SQLite database + OS Keychain integration.
+- Unlocked workspace: in-memory state, mirrored to encrypted LocalStorage (AES-256-GCM).
+- Server: one encrypted blob per account (Postgres), synced across devices.
 
 ### 2. Network Isolation
 - Browser tests display CORS warnings gracefully.

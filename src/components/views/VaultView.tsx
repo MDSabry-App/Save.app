@@ -281,7 +281,7 @@ export const VaultView: React.FC = () => {
         <ShieldCheck className="w-4 h-4 text-emerald-500 shrink-0 mt-0.5" />
         <div>
           <span className="font-semibold text-neutral-800 dark:text-neutral-200">Security Architecture: </span>
-          In browser mode, passwords are encrypted in local storage abstractions. When packaged with Electron, DevDesk directly bridges with native Windows Credential Manager and OS keychains.
+          Vault entries are part of the encrypted workspace: AES-256-GCM with a key derived from your password (PBKDF2), held in memory only. The encrypted copy on the server cannot be read without that password, and values stay masked until you reveal them.
         </div>
       </div>
 

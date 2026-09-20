@@ -1,16 +1,47 @@
 # DevDesk — Developer & Personal Utility Dashboard
 
-A modern, practical, **desktop-ready** workspace for developers and power users featuring API management, prompts, MCP, skills, password vault, bookmarks, notes, and developer utilities with full RTL/LTR support.
+A modern, practical, **desktop-ready** workspace for developers and power users:
+API key manager, prompt library, MCP servers, skills, password vault, bookmarks,
+notes, todos, snippets, developer toolbox, clipboard history, favorites and
+recent activity — with full English/Arabic RTL/LTR support.
 
-## 🔒 SECURITY FEATURES (v1.1.0+)
+Runs as a **web app on Vercel** (SPA + serverless API + Postgres) and as a
+**native Windows desktop app** (Electron) from the same codebase, sharing one
+account and one encrypted workspace across all of your devices.
 
-**End-to-End Encryption (E2EE)**: All data (API Keys, passwords) is encrypted using AES-256-GCM in your browser BEFORE it leaves your device. The server stores **only encrypted blobs** - even the database administrator cannot read your data.
+---
 
-**Authentication**: Secure JWT-based login system with protected API endpoints.
+## How data is stored and synced
 
-**Security Headers & Rate Limiting**: Protected against common web attacks (XSS, clickjacking, brute-force).
+Be precise about what this does:
 
-Runs both as a **web application** with secure cloud hosting, and as a **native Windows desktop application** (Electron) from a single codebase.
+| Layer | What happens |
+| --- | --- |
+| In the browser / desktop app | The workspace is a single JSON document held in memory. |
+| At rest locally | It is mirrored to `localStorage` **encrypted** (AES-256-GCM, `devdesk_mirror_v1`). Nothing plaintext is written once you have unlocked the app. |
+| In transit | Only the ciphertext blob and its IV are uploaded to `POST /api/workspace`. |
+| On the server | Postgres stores `users(id, email, password_hash, vault_salt)` and `blobs(user_id, data, iv, updated_at)`. `data` is ciphertext. |
+| Key material | `PBKDF2(password, vaultSalt, 100000, SHA-256)` → AES-256-GCM key. Derived in the browser on every unlock; **never stored, never sent**. |
+
+Cross-device behaviour:
+
+- On unlock the app pulls the stored blob (`GET /api/workspace`) and adopts it
+  when it is newer than any pending local edit.
+- Every local change schedules an encrypted push ~1.8 s later (debounced).
+- A scheduler pulls changes from other devices: every 15 s, on window focus, when
+  the tab becomes visible, when the browser comes back online, and at startup.
+  Polling uses the cheap `?meta=1` version check, so the full blob is only
+  transferred when it actually changed.
+- Local edits are never overwritten by an older or failed remote response, and a
+  failed/empty reply never wipes local data.
+- One account is expected (single user). Conflicts are resolved last-write-wins
+  using the server's `updated_at`.
+
+Honest limits of the encryption (see `SECURITY.md` for the full list): the
+password itself is sent over TLS to authenticate the account, so this protects
+your data against database theft and network snooping, **not** against a
+malicious or compromised server operator who captures your password at login.
+There is no password reset by design: losing the password loses the vault.
 
 ---
 
@@ -20,44 +51,65 @@ Runs both as a **web application** with secure cloud hosting, and as a **native 
 
 ```bash
 npm install
-npm run dev
+npm run dev          # http://localhost:3000
 ```
 
-Open http://localhost:3000
+> **Windows note (local only).** This folder's name contains an em dash and an
+> `&`. On Windows npm executes package scripts through `cmd.exe`, which splits
+> the command at `&`, so `npm run build` / `npm run lint` fail with
+> `'-personal-utility-dashboard\node_modules\.bin\' is not recognized...`.
+> Fix it with a **machine-local** `.npmrc` in this folder (Git Bash ships with
+> Git for Windows):
+>
+> ```ini
+> script-shell=C:\Program Files\Git\bin\bash.exe
+> ```
+>
+> That file is in `.gitignore` and `.vercelignore`, so it is never committed and
+> never uploaded to Vercel — Linux/macOS installs and Vercel's builders use the
+> default shell and need no override. Cloning this repo on a new Windows machine
+> means adding that one line once.
 
-## Run as a desktop application (development)
-
-Launches the Vite dev server and the Electron shell together:
+With an empty `VITE_API_URL` the app calls `/api/...` on its own origin. For a
+full local stack (frontend + serverless API + database) use the Vercel CLI:
 
 ```bash
-npm run dev:desktop
+npm i -g vercel
+vercel env pull .env.local   # or set DATABASE_URL / AUTH_SECRET in .env
+vercel dev                   # serves the SPA and /api on one origin
 ```
 
-The window loads the dev server in development and the packaged production
-build in release builds — the renderer never needs to know which.
+`npm run dev` alone has no API, so the login screen will report that the server
+is unreachable — that is expected, not a bug. Point `VITE_API_URL` at a deployed
+instance to develop the UI against a real backend.
 
-## Production build & Windows installer
+See **`DEPLOYMENT.md`** for the step-by-step Vercel + free Postgres setup.
+
+## Run as a desktop application (Electron)
 
 ```bash
-npm run dist:win
+npm run dev:desktop          # Vite dev server + Electron shell
 ```
 
-Outputs (in `release/` unless overridden by `build.directories.output`):
+The desktop app loads the packaged bundle from `file://`, so it needs an
+absolute API URL at build time:
 
-```
-DevDesk-Setup-1.0.0.exe   # NSIS installer (per-user, desktop + Start Menu shortcuts)
-win-unpacked/DevDesk.exe  # unpacked app for quick testing
+```bash
+VITE_API_URL="https://your-app.vercel.app" npm run build
+npm run dist:win             # NSIS installer + unpacked build
 ```
 
-The installed application is fully self-contained — it does not require
-Node.js, npm, Vite, or a development server.
+Desktop requests go through the Electron main process (Chromium network stack)
+instead of `fetch`, so no CORS configuration is required for the `file://`
+origin.
 
 Other scripts:
 
 ```bash
-npm run build      # renderer production build (dist/)
+npm run build      # renderer production build (dist/) — works with base: './' for file://
+npm run lint       # TypeScript typecheck (src + api)
+npm run test:self  # offline self-test: sync engine + API hardening (no DB needed)
 npm run pack:win   # package without installer
-npm run lint       # TypeScript typecheck (tsc --noEmit)
 ```
 
 ---
@@ -66,65 +118,28 @@ npm run lint       # TypeScript typecheck (tsc --noEmit)
 
 ```
 DevDesk
-├── Renderer (existing React application, untouched)
-│   └── src/platform/           ← platform adapters
-│       ├── browserAdapter.ts   ← fetch / Web Clipboard / Blob download
-│       ├── electronAdapter.ts  ← window.desktopAPI bridge
-│       └── index.ts            ← detectPlatform() + createPlatform()
-├── Preload (preload.cjs)       ← contextBridge, narrowly scoped API
-├── IPC                         ← validated channels
-└── Main (electron/)
-    ├── main.cjs                ← lifecycle, single-instance, IPC wiring
-    ├── modules/window.cjs      ← BrowserWindow, 1440×900 (min 1100×700)
-    ├── modules/windowState.cjs ← persisted bounds + on-screen validation
-    ├── modules/http.cjs        ← native net.request (CORS-free API testing)
-    ├── modules/files.cjs       ← native dialogs (import/export, SKILL.md)
-    ├── modules/clipboard.cjs   ← native clipboard
-    ├── modules/notifications.cjs ← native toasts
-    └── modules/menu.cjs        ← application menu
+├── src/                      React 19 + Vite + Tailwind v4 SPA
+│   ├── App.tsx               AuthProvider → gate → AppProvider + AppShell
+│   ├── components/AuthScreen.tsx   sign in / create account / unlock (EN + AR)
+│   ├── context/AuthContext.tsx     session bootstrap, /api/me check, unlock flow
+│   ├── context/AppContext.tsx      workspace state; adopts remote updates
+│   ├── api/client.ts               single place for the API base URL + transport
+│   ├── session/sessionStore.ts     token/salt/email persistence
+│   ├── storage/storageService.ts   sync engine (mirror, debounce push, pull loop)
+│   ├── utils/crypto.ts             PBKDF2 + AES-256-GCM (Web Crypto)
+│   └── platform/                   browser ⇄ Electron adapters
+├── api/                      Vercel serverless functions (the ONLY backend)
+│   ├── auth.ts               POST /api/auth   register | login → { token, vaultSalt, user }
+│   ├── me.ts                 GET  /api/me     session check → { user, vaultSalt }
+│   ├── workspace.ts          GET/POST /api/workspace   encrypted blob + ?meta=1
+│   └── _lib/{auth,http}.ts   scrypt, HMAC tokens, validation, CORS, rate limit
+├── electron/                 desktop shell (main process + preload bridge)
+└── server/                   LEGACY Express/Prisma leftover — not deployed (see server/LEGACY.md)
 ```
 
-### Platform abstraction (browser ⇄ desktop)
-
-The renderer talks only to `IPlatform` (`src/platform/types.ts`). `createPlatform()`
-picks the browser or Electron implementation at runtime, so no component contains
-Electron-specific checks:
-
-```
-UI → platform.http / platform.clipboard / platform.fileSystem
-        ├─ Browser:  fetch(), navigator.clipboard, Blob download
-        └─ Electron: window.desktopAPI → preload → IPC → main process
-```
-
-### Security posture
-
-- `contextIsolation: true`, `nodeIntegration: false`, `sandbox: true`
-- `preload.cjs` exposes a scoped `desktopAPI` only — `require`, `ipcRenderer`,
-  `fs`, `child_process`, and `shell` are never reachable from the renderer
-- Every IPC handler validates its arguments (URL scheme, method, sizes, timeouts)
-- External links open in the default browser; navigation away from the app URL
-  is blocked
-- API keys/passwords are never logged; error messages exclude secret values
-
-### Storage
-
-- Workspace data: `localStorage` under `devdesk_workspace_v1` (schema v1),
-  transparently persisted in the desktop app's own `%APPDATA%\DevDesk`
-  partition — the same import/export, seeding, and reset flows work identically
-  in both modes
-- Window geometry: `%APPDATA%\DevDesk\window-state.json`
-- Sensitive data is masked in the UI; the vault is prepared for a secure
-  OS-storage backend (see Settings → About)
-
-### Native capabilities (desktop only)
-
-- **API testing** — requests run through the main process via `net.request`,
-  so provider endpoints (OpenAI, Gemini, …) are reachable without browser CORS
-  restrictions; status, timing, headers, and body return to the console
-- **Filesystem** — native save/open dialogs for JSON backups, prompt JSON, and
-  `SKILL.md` exports, with remembered last-used directory
-- **Clipboard** — native read/write, works without a focused window
-- **Notifications** — native Windows toasts (opt-in via Settings)
+The renderer talks to `IPlatform` (`src/platform/types.ts`); `createPlatform()`
+picks the browser or Electron implementation, and `src/api/client.ts` routes
+every API call through it.
 
 ---
 
@@ -136,8 +151,10 @@ Todos (subtasks, priorities) · Snippets (syntax highlight) · Developer Toolbox
 (JSON, Base64, JWT, URL, Hash, Regex, Colors, Timestamp) · Clipboard History ·
 Favorites · Recent Activity · Global Search (Ctrl+K) · Command Palette
 (Ctrl+Shift+P) · Import/Export (all or per-section) · Light/Dark/System themes ·
-English & Arabic with full LTR/RTL mirroring.
+English & Arabic with full LTR/RTL mirroring · Multi-device sync with an
+encrypted vault.
 
 ## Version
 
-1.0.0 — visible in Settings → About.
+1.0.0 — visible in Settings → About. The version string is independent of the
+feature set; see `STATUS.md` for what is actually implemented and verified.

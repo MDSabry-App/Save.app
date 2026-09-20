@@ -1,12 +1,16 @@
-// Native HTTP layer for the API Testing Console.
-// Runs in the main process through Chromium's network stack, so cross-origin
-// requests to provider endpoints (OpenAI, Gemini, ...) work without CORS
-// restrictions. Request/response shapes mirror the renderer's
-// ApiTestConfig / ApiTestResponse types (src/types/index.ts).
+// Native HTTP layer for the API Testing Console AND for workspace sync
+// (the renderer's /api/* calls run through this transport in desktop mode, so
+// cross-origin requests to the deployed API work without CORS restrictions).
+// Request/response shapes mirror the renderer's ApiTestConfig / ApiTestResponse
+// types (src/types/index.ts).
 const { net } = require('electron');
 
-const MAX_BODY_BYTES = 2 * 1024 * 1024; // response body cap fed back to the UI
-const MAX_REQUEST_BODY_BYTES = 1024 * 1024;
+// Response cap fed back to the UI. Large enough for a full encrypted workspace
+// blob (the server accepts up to ~3 MB of ciphertext).
+const MAX_BODY_BYTES = 8 * 1024 * 1024;
+// Request cap: an encrypted workspace blob is base64 ciphertext, so allow more
+// than the plaintext size. Below the server's own body limit.
+const MAX_REQUEST_BODY_BYTES = 4 * 1024 * 1024;
 const DEFAULT_TIMEOUT_MS = 10000;
 const MAX_TIMEOUT_MS = 120000;
 const ALLOWED_METHODS = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'];

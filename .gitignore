@@ -12,5 +12,14 @@ coverage/
 !.env.example
 *.sqlite
 *.sqlite3
+.vercel/
 .idea/
 .vscode/
+
+# Machine-specific npm settings (Windows-only script-shell — see README).
+# Must never be committed: it contains a Windows absolute path that breaks
+# `npm install` / `npm ci` on Linux, including Vercel's builders.
+.npmrc
+
+.vercel
+.env*

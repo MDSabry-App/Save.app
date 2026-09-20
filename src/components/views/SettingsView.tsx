@@ -16,10 +16,13 @@ import {
   CheckCircle2,
   AlertTriangle,
   Info,
+  ShieldCheck,
 } from 'lucide-react';
 import { Badge } from '../common/Badge';
 import { ConfirmDialog } from '../common/ConfirmDialog';
 import { platform } from '../../platform';
+import { useAuth } from '../../context/AuthContext';
+import { sessionStore } from '../../session/sessionStore';
 
 export const SettingsView: React.FC = () => {
   const {
@@ -44,6 +47,8 @@ export const SettingsView: React.FC = () => {
     t,
   } = useApp();
 
+  const { syncStatus, user } = useAuth();
+
   const [confirmResetOpen, setConfirmResetOpen] = useState(false);
   const [confirmClearOpen, setConfirmClearOpen] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
@@ -53,8 +58,11 @@ export const SettingsView: React.FC = () => {
 
   function useMemoStorageSize() {
     try {
-      const raw = localStorage.getItem('devdesk_workspace_v1') || '';
-      const bytes = new Blob([raw]).size;
+      // Encrypted local mirror (plus the legacy plaintext key, if a pre-sync
+      // build left one behind — it is deleted after the first unlock).
+      const mirror = localStorage.getItem('devdesk_mirror_v1') || '';
+      const legacy = localStorage.getItem('devdesk_workspace_v1') || '';
+      const bytes = new Blob([mirror]).size + new Blob([legacy]).size;
       const kb = (bytes / 1024).toFixed(1);
       return { bytes, kb };
     } catch {
@@ -292,6 +300,31 @@ export const SettingsView: React.FC = () => {
         )}
       </div>
 
+      {/* Encryption, account & sync */}
+      <div className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 space-y-3">
+        <div className="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
+          <ShieldCheck className="w-4 h-4 text-emerald-500" />
+          <span>{t('settingsSecurity')}</span>
+        </div>
+        <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-400">
+          {t('securityNotice')}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+          <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-800/60 space-y-1">
+            <span className="text-neutral-400">Account</span>
+            <div className="font-semibold text-neutral-800 dark:text-neutral-200 truncate">
+              {user?.email || '—'}
+            </div>
+          </div>
+          <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-800/60 space-y-1">
+            <span className="text-neutral-400">Password & key</span>
+            <div className="font-semibold text-neutral-800 dark:text-neutral-200">
+              Not stored — requested once per launch
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Platform & Native Packaging Section */}
       <div className="p-5 rounded-2xl bg-white dark:bg-neutral-900 border border-neutral-200/80 dark:border-neutral-800 space-y-4">
         <div className="flex items-center gap-2 text-sm font-semibold text-neutral-900 dark:text-neutral-100">
@@ -299,7 +332,7 @@ export const SettingsView: React.FC = () => {
           <span>Platform & Desktop Packaging Architecture</span>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
           <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-800/60 space-y-1">
             <span className="text-neutral-400">Environment</span>
             <div className="font-semibold text-neutral-800 dark:text-neutral-200">
@@ -315,7 +348,20 @@ export const SettingsView: React.FC = () => {
           <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-800/60 space-y-1">
             <span className="text-neutral-400">Storage Adapter</span>
             <div className="font-semibold text-neutral-800 dark:text-neutral-200">
-              StorageService (localStorage v1)
+              Encrypted mirror (AES-GCM)
+            </div>
+          </div>
+          <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-800/60 space-y-1">
+            <span className="text-neutral-400">API Endpoint</span>
+            <div className="font-semibold text-neutral-800 dark:text-neutral-200 font-mono truncate" title={sessionStore.apiBaseLabel()}>
+              {sessionStore.apiBaseLabel()}
+            </div>
+          </div>
+          <div className="p-3 rounded-xl bg-neutral-50 dark:bg-neutral-950 border border-neutral-200/60 dark:border-neutral-800/60 space-y-1">
+            <span className="text-neutral-400">Sync Status</span>
+            <div className="font-semibold text-neutral-800 dark:text-neutral-200">
+              {syncStatus.state}
+              {syncStatus.pendingPush ? ' · pending' : ''}
             </div>
           </div>
         </div>

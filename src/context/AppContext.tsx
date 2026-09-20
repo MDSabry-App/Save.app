@@ -117,6 +117,10 @@ interface AppContextType {
   removeDemoData: () => void;
   resetAllData: () => void;
   copyToClipboard: (text: string, label?: string) => Promise<boolean>;
+
+  // Cross-device sync
+  /** Forces an immediate pull (used by the "sync now" action in Settings). */
+  syncNow: () => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | null>(null);
@@ -129,6 +133,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const [isSearchOpen, setSearchOpen] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
+
+  // Cross-device sync: adopt state pulled from another device.
+  // Only fires for remote updates, so local edits are not re-applied twice.
+  useEffect(
+    () =>
+      storageService.onRemoteUpdate((next) => {
+        setState(next);
+      }),
+    [],
+  );
 
   // Apply language and direction to html document
   useEffect(() => {
@@ -828,6 +842,11 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     addToast({ message: 'Workspace reset to clean state', type: 'warning' });
   }, [addToast]);
 
+  const syncNow = useCallback(async () => {
+    await storageService.pullNow(true);
+    setState(storageService.getState());
+  }, []);
+
   return (
     <AppContext.Provider
       value={{
@@ -904,6 +923,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         removeDemoData,
         resetAllData,
         copyToClipboard,
+        syncNow,
       }}
     >
       {children}

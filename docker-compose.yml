@@ -1,3 +1,7 @@
+# LEGACY: this file runs the old Express/Prisma backend in server/ on port 3001.
+# It is NOT part of the current deployment model — the app now uses the Vercel
+# serverless functions in api/ with a hosted Postgres (see DEPLOYMENT.md).
+# Kept for reference only.
 version: '3.8'
 
 services:
