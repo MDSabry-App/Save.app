@@ -42,6 +42,7 @@ export type AuthErrorCode =
   | 'invalid-input'
   | 'too-many-requests'
   | 'server-error'
+  | 'server-unavailable'
   | 'offline'
   | 'cannot-verify-offline'
   | 'session-expired'
@@ -66,13 +67,19 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | null>(null);
 
-function mapApiError(status: number, network: boolean): AuthErrorCode {
+function mapApiError(status: number, network: boolean, serverMessage?: string): AuthErrorCode {
   if (network) return 'offline';
   if (status === 401) return 'invalid-credentials';
   if (status === 409) return 'email-in-use';
   if (status === 400) return 'invalid-input';
   if (status === 429) return 'too-many-requests';
-  if (status >= 500) return 'server-error';
+  if (status >= 500) {
+    // Only a deployment-level configuration error deserves the "server is not
+    // configured" wording; any other 5xx is a transient failure.
+    return serverMessage && /not configured/i.test(serverMessage)
+      ? 'server-error'
+      : 'server-unavailable';
+  }
   return 'unknown';
 }
 
@@ -198,7 +205,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const res = await postAuth('login', loginEmail.trim(), password);
         if (!res.ok) {
-          setError(mapApiError(res.status, res.network));
+          setError(mapApiError(res.status, res.network, res.error));
           return false;
         }
         return await completeAuth(res.data.token, res.data.vaultSalt, res.data.user, password);
@@ -216,7 +223,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       try {
         const res = await postAuth('register', registerEmail.trim(), password);
         if (!res.ok) {
-          setError(mapApiError(res.status, res.network));
+          setError(mapApiError(res.status, res.network, res.error));
           return false;
         }
         return await completeAuth(res.data.token, res.data.vaultSalt, res.data.user, password);

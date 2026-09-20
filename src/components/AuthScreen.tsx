@@ -21,6 +21,7 @@ const ERROR_KEYS: Record<AuthErrorCode, keyof typeof translations.en> = {
   'invalid-input': 'authErrInvalidInput',
   'too-many-requests': 'authErrTooManyRequests',
   'server-error': 'authErrServer',
+  'server-unavailable': 'authErrServerUnavailable',
   offline: 'authErrOffline',
   'cannot-verify-offline': 'authErrCannotVerifyOffline',
   'session-expired': 'authErrSessionExpired',
