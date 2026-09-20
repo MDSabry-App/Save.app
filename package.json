@@ -1,10 +1,10 @@
 {
-  "name": "devdesk",
-  "productName": "DevDesk",
+  "name": "savedesk",
+  "productName": "SaveDesk",
   "private": true,
   "version": "1.0.0",
-  "description": "DevDesk — Developer & Personal Utility Dashboard. Fast, private, desktop-ready productivity environment.",
-  "author": "DevDesk",
+  "description": "SaveDesk — Developer & Personal Utility Dashboard. Fast, private, desktop-ready productivity environment.",
+  "author": "SaveDesk",
   "license": "MIT",
   "type": "module",
   "main": "electron/main.cjs",
@@ -26,7 +26,7 @@
   },
   "build": {
     "appId": "com.devdesk.desktop",
-    "productName": "DevDesk",
+    "productName": "SaveDesk",
     "asar": true,
     "directories": {
       "output": "C:\\devdesk-release",
@@ -53,9 +53,9 @@
       "allowToChangeInstallationDirectory": true,
       "createDesktopShortcut": true,
       "createStartMenuShortcut": true,
-      "shortcutName": "DevDesk",
+      "shortcutName": "SaveDesk",
       "deleteAppDataOnUninstall": false,
-      "uninstallDisplayName": "DevDesk — Developer and Personal Utility Dashboard"
+      "uninstallDisplayName": "SaveDesk — Developer and Personal Utility Dashboard"
     }
   },
   "dependencies": {

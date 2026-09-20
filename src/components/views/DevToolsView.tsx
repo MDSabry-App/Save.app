@@ -36,7 +36,7 @@ export const DevToolsView: React.FC = () => {
   const [activeTool, setActiveTool] = useState<ToolId>('json');
 
   // ===================== 1. JSON Tool =====================
-  const [jsonInput, setJsonInput] = useState('{\n  "name": "DevDesk",\n  "version": "1.0.0",\n  "features": ["keys", "prompts", "mcp", "skills"]\n}');
+  const [jsonInput, setJsonInput] = useState('{\n  "name": "SaveDesk",\n  "version": "1.0.0",\n  "features": ["keys", "prompts", "mcp", "skills"]\n}');
   const [jsonOutput, setJsonOutput] = useState('');
   const [jsonError, setJsonError] = useState<string | null>(null);
 
@@ -61,7 +61,7 @@ export const DevToolsView: React.FC = () => {
   };
 
   // ===================== 2. Base64 Tool =====================
-  const [b64Input, setB64Input] = useState('Hello, DevDesk Engineer!');
+  const [b64Input, setB64Input] = useState('Hello, SaveDesk Engineer!');
   const [b64Output, setB64Output] = useState('');
   const [b64UrlSafe, setB64UrlSafe] = useState(false);
   const [b64Error, setB64Error] = useState<string | null>(null);
@@ -133,7 +133,7 @@ export const DevToolsView: React.FC = () => {
   }, [jwtInput]);
 
   // ===================== 4. URL Tool =====================
-  const [urlInput, setUrlInput] = useState('https://api.devdesk.local/v1/search?q=developer+tools&category=ai&sort=recent');
+  const [urlInput, setUrlInput] = useState('https://api.savedesk.local/v1/search?q=developer+tools&category=ai&sort=recent');
   const [urlOutput, setUrlOutput] = useState('');
 
   const parsedQueryParams = useMemo(() => {
@@ -187,7 +187,7 @@ export const DevToolsView: React.FC = () => {
   const [regexPattern, setRegexPattern] = useState('\\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z|a-z]{2,}\\b');
   const [regexFlags, setRegexFlags] = useState('g');
   const [regexTestString, setRegexTestString] = useState(
-    'Contact support@devdesk.com or security@enterprise.org for questions. Invalid: user@.com'
+    'Contact support@savedesk.com or security@enterprise.org for questions. Invalid: user@.com'
   );
 
   const regexResults = useMemo(() => {

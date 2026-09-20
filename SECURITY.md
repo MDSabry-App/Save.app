@@ -1,4 +1,4 @@
-# DevDesk — Security Model
+# SaveDesk — Security Model
 
 This document describes what the code **actually does**. It deliberately does not
 claim protections that are not implemented.

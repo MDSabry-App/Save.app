@@ -69,7 +69,7 @@ const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`
     ╔═══════════════════════════════════════╗
-    ║     DevDesk Secure Backend Server     ║
+    ║     SaveDesk Secure Backend Server    ║
     ╚═══════════════════════════════════════╝
     
     Mode: ${process.env.NODE_ENV || 'development'}

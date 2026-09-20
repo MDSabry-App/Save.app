@@ -1,4 +1,4 @@
-// DevDesk icon generator — pure Node, no dependencies.
+// SaveDesk icon generator — pure Node, no dependencies.
 // Draws a rounded-square terminal glyph (">_") with analytic anti-aliasing,
 // box-filters it down to every target size, writes PNGs (zlib) and a
 // multi-resolution Windows .ico containing those PNGs.

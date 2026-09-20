@@ -65,7 +65,7 @@ export class BrowserHttpAdapter implements IHttpAdapter {
         timeMs,
         headers: {},
         body: isCorsError
-          ? `[Browser CORS Limitation]\nThe target endpoint blocked this in-browser cross-origin request. In DevDesk desktop mode (Electron), requests are sent through the native background HTTP layer without CORS restrictions.`
+          ? `[Browser CORS Limitation]\nThe target endpoint blocked this in-browser cross-origin request. In SaveDesk desktop mode (Electron), requests are sent through the native background HTTP layer without CORS restrictions.`
           : err instanceof Error
             ? err.message
             : 'Unknown request error',

@@ -171,7 +171,7 @@ export const AuthScreen: React.FC = () => {
           </div>
           <div>
             <div className="text-base font-bold text-neutral-900 dark:text-neutral-100 leading-tight">
-              DevDesk
+              SaveDesk
             </div>
             <div className="text-[11px] text-neutral-500 dark:text-neutral-400">{t('appTagline')}</div>
           </div>
@@ -347,7 +347,7 @@ export const AuthBootScreen: React.FC = () => (
   <div className="min-h-screen flex items-center justify-center bg-neutral-100 dark:bg-neutral-950">
     <div className="flex items-center gap-2 text-sm text-neutral-500 dark:text-neutral-400">
       <Loader2 className="w-4 h-4 animate-spin" />
-      DevDesk
+      SaveDesk
     </div>
   </div>
 );

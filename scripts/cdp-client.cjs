@@ -1,4 +1,4 @@
-// Minimal CDP client: evaluates expressions inside the installed DevDesk
+// Minimal CDP client: evaluates expressions inside the installed SaveDesk
 // renderer over the DevTools protocol (no Electron internals needed).
 const http = require('http');
 const WebSocket = (() => {
@@ -20,7 +20,7 @@ function listPages() {
 async function evaluate(expr, { awaitPromise = true } = {}) {
   const pages = await listPages();
   const page = pages.find((p) => p.type === 'page' && p.url.includes('index.html'));
-  if (!page) throw new Error('no DevDesk page found via CDP');
+  if (!page) throw new Error('no SaveDesk page found via CDP');
   if (!WebSocket) throw new Error('ws module unavailable');
 
   return new Promise((resolve, reject) => {

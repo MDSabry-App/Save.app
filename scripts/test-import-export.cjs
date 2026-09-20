@@ -14,7 +14,7 @@ const KEY = 'devdesk_workspace_v1';
   const exportOut = await evaluate(`
     (async () => {
       const st = JSON.parse(localStorage.getItem('${KEY}'));
-      const backup = { schemaVersion: 1, exportedAt: new Date().toISOString(), appName: 'DevDesk', version: '1.0.0', data: st };
+      const backup = { schemaVersion: 1, exportedAt: new Date().toISOString(), appName: 'SaveDesk', version: '1.0.0', data: st };
       const json = JSON.stringify(backup, null, 2);
       return JSON.stringify({ bytes: json.length, sections: Object.keys(st).length, apiKeys: st.apiKeys.length, snippets: st.snippets.length });
     })()
@@ -25,7 +25,7 @@ const KEY = 'devdesk_workspace_v1';
   const wipeAndRestore = await evaluate(`
     (async () => {
       const st = JSON.parse(localStorage.getItem('${KEY}'));
-      const backup = { schemaVersion: 1, exportedAt: new Date().toISOString(), appName: 'DevDesk', version: '1.0.0', data: st };
+      const backup = { schemaVersion: 1, exportedAt: new Date().toISOString(), appName: 'SaveDesk', version: '1.0.0', data: st };
       const json = JSON.stringify(backup, null, 2);
 
       // wipe (resetAllData equivalent)

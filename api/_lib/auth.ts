@@ -1,5 +1,5 @@
 /**
- * Shared server-side helpers for the DevDesk serverless API.
+ * Shared server-side helpers for the SaveDesk serverless API.
  *
  * - Password hashing: scrypt (node:crypto, no external dependency)
  * - Tokens: HMAC-SHA256 signed, 7-day expiry, constant-time verification

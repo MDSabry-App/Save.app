@@ -51,7 +51,7 @@ function buildAppMenu(isDev) {
       label: 'Help',
       submenu: [
         {
-          label: 'DevDesk v' + app.getVersion(),
+          label: 'SaveDesk v' + app.getVersion(),
           enabled: false,
         },
         {

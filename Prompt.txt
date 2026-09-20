@@ -4,7 +4,7 @@
 
 Build a modern, practical, desktop-ready web application called:
 
-**DevDesk — Developer & Personal Utility Dashboard**
+**SaveDesk — Developer & Personal Utility Dashboard**
 
 The application should be a real daily-use productivity tool for developers, creators, freelancers, students, and regular users.
 
@@ -1506,7 +1506,7 @@ At the end, provide a concise summary of:
 
 # Convert the Existing Web Application into a Production-Ready Windows Desktop App Using Electron
 
-You are now working on the **existing, fully built and functional DevDesk application**.
+You are now working on the **existing, fully built and functional SaveDesk application**.
 
 The application currently works as a web application.
 
@@ -1872,7 +1872,7 @@ Add Electron around the existing application.
 Use a clean architecture:
 
 ```
-DevDesk
+SaveDesk
 │
 ├── Renderer
 │   └── Existing React Application
@@ -2231,7 +2231,7 @@ Do not distort the existing UI.
 
 Use:
 
-**DevDesk**
+**SaveDesk**
 
 Set:
 
@@ -2257,7 +2257,7 @@ as the product name.
 
 # 18. APPLICATION ICON
 
-Create or add a professional application icon specifically for DevDesk.
+Create or add a professional application icon specifically for SaveDesk.
 
 The icon should communicate:
 
@@ -2291,7 +2291,7 @@ The installer must create a normal Windows desktop shortcut.
 
 The shortcut should:
 
-- use the DevDesk icon
+- use the SaveDesk icon
 - launch the installed application
 - use the correct executable
 - have the correct product name
@@ -2309,11 +2309,11 @@ The final product must be installable by a normal Windows user.
 The user should be able to:
 
 1. double-click the installer
-2. install DevDesk
+2. install SaveDesk
 3. choose installation options if applicable
 4. create Desktop shortcut
 5. create Start Menu shortcut
-6. launch DevDesk
+6. launch SaveDesk
 
 The application must then run without requiring:
 
@@ -2347,7 +2347,7 @@ Example:
 
 ```
 release/
-    DevDesk-Setup-x.x.x.exe
+    SaveDesk-Setup-x.x.x.exe
 ```
 
 Also generate a packaged Windows application for testing before finalizing the installer.
@@ -2875,7 +2875,7 @@ Windows Installer
         ↓
 Desktop Shortcut
         ↓
-Real Standalone DevDesk Application
+Real Standalone SaveDesk Application
 ```
 
 The final `.exe` must be a real installable Windows application that launches directly from the desktop and retains the complete functionality and appearance of the existing application.

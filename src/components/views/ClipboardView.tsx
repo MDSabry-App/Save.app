@@ -112,7 +112,7 @@ export const ClipboardView: React.FC = () => {
         <EmptyState
           icon={ClipboardList}
           title="Clipboard history is empty"
-          description="Whenever you copy items in DevDesk or add text above, it will be retained here."
+          description="Whenever you copy items in SaveDesk or add text above, it will be retained here."
         />
       ) : (
         <div className="space-y-2.5">

@@ -372,7 +372,7 @@ export const SettingsView: React.FC = () => {
             <span>Packaging into Native Desktop (Tauri or Electron)</span>
           </div>
           <p className="leading-relaxed">
-            DevDesk is architected using strict platform abstractions (<code className="font-mono text-purple-500">src/platform/</code>).
+            SaveDesk is architected using strict platform abstractions (<code className="font-mono text-purple-500">src/platform/</code>).
             To package this codebase as a native desktop binary for Windows, macOS, or Linux:
           </p>
           <div className="p-3 rounded-lg bg-neutral-900 text-neutral-200 font-mono text-[11px] space-y-1">
@@ -386,7 +386,7 @@ export const SettingsView: React.FC = () => {
       {/* About Box */}
       <div className="p-4 rounded-2xl bg-neutral-100/60 dark:bg-neutral-900/40 text-center text-xs text-neutral-500 space-y-1">
         <div className="font-semibold text-neutral-700 dark:text-neutral-300">
-          DevDesk — Developer & Personal Utility Dashboard v1.0.0
+          SaveDesk — Developer & Personal Utility Dashboard v1.0.0
         </div>
         <div>Engineered for high performance, local privacy, and multi-model workflow orchestration.</div>
       </div>

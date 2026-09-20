@@ -1,5 +1,5 @@
 /**
- * DevDesk storage service — the sync engine for a single-user, multi-device app.
+ * SaveDesk storage service — the sync engine for a single-user, multi-device app.
  *
  * Data flow
  * ---------
@@ -36,7 +36,7 @@ import {
   ClipboardItem,
   ActivityItem,
   UserSettings,
-  DevDeskBackup,
+  SaveDeskBackup,
 } from '../types';
 import { initialSettings } from '../constants/demoData';
 import { encryptData, decryptData, deriveKey } from '../utils/crypto';
@@ -755,11 +755,11 @@ class SecureStorageService {
     return this.getState();
   }
 
-  public exportAll(): DevDeskBackup {
+  public exportAll(): SaveDeskBackup {
     return {
       schemaVersion: 1,
       exportedAt: new Date().toISOString(),
-      appName: 'DevDesk',
+      appName: 'SaveDesk',
       version: '1.0.0',
       data: this.getState(),
     };

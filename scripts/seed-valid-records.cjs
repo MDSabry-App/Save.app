@@ -1,4 +1,4 @@
-// Seeds one COMPLETE, schema-valid record in every DevDesk section, then
+// Seeds one COMPLETE, schema-valid record in every SaveDesk section, then
 // verifies each one renders in its own view. Records are shaped exactly like
 // the app's own CRUD layer creates them (see src/context/AppContext.tsx).
 const { evaluate } = require('./cdp-client.cjs');

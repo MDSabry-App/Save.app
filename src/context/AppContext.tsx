@@ -810,7 +810,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const backup = storageService.exportAll();
     const jsonStr = JSON.stringify(backup, null, 2);
     const dateStr = new Date().toISOString().split('T')[0];
-    const filename = `devdesk-backup-${dateStr}.json`;
+    const filename = `savedesk-backup-${dateStr}.json`;
     platform.fileSystem.saveFile(filename, jsonStr, 'application/json');
     addToast({ message: `Exported workspace backup: ${filename}`, type: 'success' });
   }, [addToast]);

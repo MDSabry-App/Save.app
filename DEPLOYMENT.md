@@ -1,4 +1,4 @@
-# DevDesk — Deployment Guide (Vercel + free Postgres)
+# SaveDesk — Deployment Guide (Vercel + free Postgres)
 
 Target setup: **one Vercel project** serving the SPA *and* the serverless API on
 the same origin, with a free Postgres database. No CORS, no second host, no
@@ -12,7 +12,7 @@ Postgres (Neon or Supabase). Total time ~15 minutes, cost $0.
 ## Step 1 — Create a free Postgres database (Neon)
 
 1. Go to <https://neon.tech> → **Sign up** (GitHub login works).
-2. **Create project**: name `devdesk`, pick the region closest to you.
+2. **Create project**: name `savedesk`, pick the region closest to you.
 3. In **Connection Details**, copy the **connection string**. It looks like:
    ```
    postgresql://neondb_owner:AbCdEf123456@ep-cool-name-123456.eu-central-1.aws.neon.tech/neondb?sslmode=require

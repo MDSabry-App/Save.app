@@ -236,7 +236,7 @@ export interface ToastMessage {
   durationMs?: number;
 }
 
-export interface DevDeskBackup {
+export interface SaveDeskBackup {
   schemaVersion: 1;
   exportedAt: string;
   appName: string;

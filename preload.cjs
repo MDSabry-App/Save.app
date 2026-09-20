@@ -1,4 +1,4 @@
-// DevDesk preload bridge.
+// SaveDesk preload bridge.
 // Exposes a narrow, validated desktopAPI surface through contextBridge.
 // No ipcRenderer, Node.js, or filesystem primitives leak into the renderer.
 const { contextBridge, ipcRenderer } = require('electron');

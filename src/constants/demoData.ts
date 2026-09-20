@@ -182,7 +182,7 @@ export const demoSkills: SkillItem[] = [
 `,
     tags: ['react', 'tailwind', 'standards', 'accessibility'],
     version: '1.2.0',
-    author: 'DevDesk Engineering Team',
+    author: 'SaveDesk Engineering Team',
     tools: ['typescript', 'tailwind', 'vite'],
     notes: 'Exportable directly as SKILL.md for IDE agents.',
     isFavorite: true,
@@ -231,9 +231,9 @@ export const demoVaultItems: VaultItem[] = [
   {
     id: 'demo-vault-1',
     website: 'GitHub Enterprise',
-    username: 'devdesk_lead',
+    username: 'savedesk_lead',
     password: 'vX7#mK9$qL2!pA8@zR4',
-    email: 'team@devdesk.local',
+    email: 'team@savedesk.local',
     url: 'https://github.com/login',
     notes: 'Primary developer account with 2FA backup codes stored safely.',
     tags: ['work', 'git', 'critical'],
@@ -246,7 +246,7 @@ export const demoVaultItems: VaultItem[] = [
     website: 'AWS Console',
     username: 'cloud_infra_admin',
     password: 'jH8*nB3&vC9^wZ1!mQ5',
-    email: 'infra@devdesk.local',
+    email: 'infra@savedesk.local',
     url: 'https://aws.amazon.com/console',
     notes: 'Root IAM administrative credentials.',
     tags: ['cloud', 'aws', 'infrastructure'],
@@ -259,8 +259,8 @@ export const demoVaultItems: VaultItem[] = [
 export const demoNotes: NoteItem[] = [
   {
     id: 'demo-note-1',
-    title: 'DevDesk Local Architecture & Tauri Roadmap',
-    content: `# DevDesk Architecture & Native Roadmap
+    title: 'SaveDesk Local Architecture & Tauri Roadmap',
+    content: `# SaveDesk Architecture & Native Roadmap
 
 ### 1. Storage Strategy
 - Unlocked workspace: in-memory state, mirrored to encrypted LocalStorage (AES-256-GCM).
@@ -300,7 +300,7 @@ export const demoNotes: NoteItem[] = [
 export const demoTodos: TodoItem[] = [
   {
     id: 'demo-todo-1',
-    title: 'Package DevDesk as Windows Electron App (.exe)',
+    title: 'Package SaveDesk as Windows Electron App (.exe)',
     description: 'Configure electron main process, preload bridge, and electron-builder NSIS script.',
     priority: 'urgent',
     dueDate: '2026-09-25',

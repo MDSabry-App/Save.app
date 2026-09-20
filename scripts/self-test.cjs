@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * DevDesk offline self-test — no network, no Postgres, no browser.
+ * SaveDesk offline self-test — no network, no Postgres, no browser.
  *
  * Part 1 (sync engine): bundles src/storage/storageService.ts with esbuild,
  * aliases src/api/client to an in-memory fake server, and runs the exact
@@ -744,7 +744,7 @@ async function runHandlerTests() {
 // ---------------------------------------------------------------- main
 
 (async () => {
-  console.log('DevDesk self-test (offline)\n');
+  console.log('SaveDesk self-test (offline)\n');
   try {
     await runSyncTests();
     await runApiTests();

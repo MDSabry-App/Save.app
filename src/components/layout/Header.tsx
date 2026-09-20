@@ -107,11 +107,11 @@ export const Header: React.FC = () => {
 
         <div className="hidden sm:flex items-center gap-2">
           <div className="w-7 h-7 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xs shadow-xs">
-            D
+            S
           </div>
           <div>
             <div className="font-semibold text-xs text-neutral-900 dark:text-neutral-100 tracking-tight leading-none">
-              DevDesk
+              SaveDesk
             </div>
             <div className="text-[10px] text-neutral-500 dark:text-neutral-400 leading-tight">
               v1.0.0

@@ -1,4 +1,4 @@
-// Verifies the running DevDesk app instance by connecting to its first window.
+// Verifies the running SaveDesk app instance by connecting to its first window.
 // Usage: npx electron scripts/verify-electron.cjs  (requires the app already running)
 // If the app is not running, it boots it standalone for the checks.
 const { app, BrowserWindow, session } = require('electron');
@@ -19,7 +19,7 @@ async function inspect(win) {
   check('sandbox: true', prefs.sandbox === true);
   check('preload path set', typeof prefs.preload === 'string' && prefs.preload.length > 0, prefs.preload);
   check('webSecurity not disabled', prefs.webSecurity !== false);
-  check('window title is DevDesk', win.title.includes('DevDesk'), win.title);
+  check('window title is SaveDesk', win.title.includes('SaveDesk'), win.title);
 
   console.log('\n--- renderer bridge state ---');
   const info = await win.webContents.executeJavaScript(
@@ -64,7 +64,7 @@ app.whenReady().then(async () => {
       const win = new BrowserWindow({
         width: 1440,
         height: 900,
-        title: 'DevDesk',
+        title: 'SaveDesk',
         webPreferences: {
           preload: path.join(__dirname, '..', 'preload.cjs'),
           contextIsolation: true,

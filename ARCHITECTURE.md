@@ -1,4 +1,4 @@
-# DevDesk — Architecture
+# SaveDesk — Architecture
 
 One account, many devices, one encrypted workspace. Three tiers, no extra
 services:

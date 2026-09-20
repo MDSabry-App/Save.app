@@ -1,7 +1,7 @@
 export const translations = {
   en: {
     // App info
-    appName: 'DevDesk',
+    appName: 'SaveDesk',
     appTagline: 'Developer & Personal Utility Dashboard',
     searchPlaceholder: 'Search anything (Ctrl + K)...',
     commandPalette: 'Command Palette',
@@ -106,7 +106,7 @@ export const translations = {
     responseStatus: 'Status',
     responseTime: 'Response Time',
     responseBody: 'Response Body',
-    corsNotice: 'Browser Note: External API tests are subject to browser CORS policies. DevDesk desktop app (Electron) uses a native HTTP layer to bypass CORS completely.',
+    corsNotice: 'Browser Note: External API tests are subject to browser CORS policies. SaveDesk desktop app (Electron) uses a native HTTP layer to bypass CORS completely.',
 
     // Password
     passwordGenerator: 'Password Generator',
@@ -175,7 +175,7 @@ export const translations = {
     settingsData: 'Data Management & Backup',
     settingsSecurity: 'Security & Privacy',
     settingsShortcuts: 'Keyboard Shortcuts',
-    settingsAbout: 'About DevDesk',
+    settingsAbout: 'About SaveDesk',
     themeLight: 'Light',
     themeDark: 'Dark',
     themeSystem: 'System',
@@ -235,7 +235,7 @@ export const translations = {
 
   ar: {
     // App info
-    appName: 'ديف ديسك',
+    appName: 'سيف ديسك',
     appTagline: 'لوحة أدوات المطور والمساعد الشخصي اليومي',
     searchPlaceholder: 'ابحث في أي شيء (Ctrl + K)...',
     commandPalette: 'لوحة الأوامر السريعة',
@@ -340,7 +340,7 @@ export const translations = {
     responseStatus: 'كود الحالة',
     responseTime: 'زمن الاستجابة',
     responseBody: 'استجابة الخادم',
-    corsNotice: 'ملاحظة المتصفح: اختبارات API الخارجية تخضع لسياسات CORS في المتصفح. يوفر تطبيق DevDesk المكتبي طبقة شبكة أصلية (Electron Native HTTP) لتجاوز قيود CORS بالكامل.',
+    corsNotice: 'ملاحظة المتصفح: اختبارات API الخارجية تخضع لسياسات CORS في المتصفح. يوفر تطبيق SaveDesk المكتبي طبقة شبكة أصلية (Electron Native HTTP) لتجاوز قيود CORS بالكامل.',
 
     // Password
     passwordGenerator: 'مولد كلمات المرور',
@@ -409,7 +409,7 @@ export const translations = {
     settingsData: 'إدارة البيانات والنسخ الاحتياطي',
     settingsSecurity: 'الأمان والخصوصية',
     settingsShortcuts: 'اختصارات لوحة المفاتيح',
-    settingsAbout: 'حول تطبيق DevDesk',
+    settingsAbout: 'حول تطبيق SaveDesk',
     themeLight: 'فاتح',
     themeDark: 'داكن',
     themeSystem: 'النظام',

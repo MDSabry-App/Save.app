@@ -70,7 +70,7 @@ export const SkillsView: React.FC = () => {
     setCategory('Frontend');
     setContent(`# Skill Instructions\n\n## Overview\nGuidelines for development tools and agent capabilities.\n\n## Best Practices\n- Practice 1\n- Practice 2\n`);
     setVersion('1.0.0');
-    setAuthor('DevDesk');
+    setAuthor('SaveDesk');
     setTools('typescript, react');
     setTags('standards, ui');
     setNotes('');
@@ -124,7 +124,7 @@ export const SkillsView: React.FC = () => {
 name: ${item.name}
 description: "${item.description.replace(/"/g, '\\"')}"
 version: ${item.version || '1.0.0'}
-author: ${item.author || 'DevDesk'}
+author: ${item.author || 'SaveDesk'}
 tools: [${(item.tools || []).map((t) => `"${t}"`).join(', ')}]
 category: ${item.category}
 tags: [${item.tags.map((t) => `"${t}"`).join(', ')}]

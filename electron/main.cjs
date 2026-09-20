@@ -1,4 +1,4 @@
-// DevDesk — Electron main process.
+// SaveDesk — Electron main process.
 // The renderer is the existing React application (loaded from the Vite dev
 // server in development, or the packaged production build via file://).
 const { app, BrowserWindow, ipcMain, shell } = require('electron');

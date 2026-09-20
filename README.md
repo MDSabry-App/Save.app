@@ -1,4 +1,4 @@
-# DevDesk — Developer & Personal Utility Dashboard
+# SaveDesk — Developer & Personal Utility Dashboard
 
 A modern, practical, **desktop-ready** workspace for developers and power users:
 API key manager, prompt library, MCP servers, skills, password vault, bookmarks,
@@ -117,7 +117,7 @@ npm run pack:win   # package without installer
 ## Architecture
 
 ```
-DevDesk
+SaveDesk
 ├── src/                      React 19 + Vite + Tailwind v4 SPA
 │   ├── App.tsx               AuthProvider → gate → AppProvider + AppShell
 │   ├── components/AuthScreen.tsx   sign in / create account / unlock (EN + AR)

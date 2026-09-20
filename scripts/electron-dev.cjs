@@ -59,7 +59,7 @@ async function main() {
   const root = path.join(__dirname, '..');
   const cmdQuote = (s) => `"${s}"`;
 
-  console.log('[devdesk] starting Vite dev server on port ' + PORT + '...');
+  console.log('[savedesk] starting Vite dev server on port ' + PORT + '...');
   const viteCommand =
     process.platform === 'win32'
       ? `npx vite --port=${PORT} --strictPort`
@@ -78,7 +78,7 @@ async function main() {
   }
   viteProc.on('exit', (code) => {
     if (!shuttingDown) {
-      console.error(`[devdesk] Vite exited unexpectedly (code ${code}).`);
+      console.error(`[savedesk] Vite exited unexpectedly (code ${code}).`);
       shutdown(code ?? 1);
     }
   });
@@ -86,12 +86,12 @@ async function main() {
   try {
     await waitForServer(DEV_URL);
   } catch (err) {
-    console.error('[devdesk] ' + err.message);
+    console.error('[savedesk] ' + err.message);
     shutdown(1);
     return;
   }
 
-  console.log('[devdesk] dev server ready — launching Electron...');
+  console.log('[savedesk] dev server ready — launching Electron...');
   if (process.platform === 'win32') {
     electronProc = spawn(
       'cmd.exe',

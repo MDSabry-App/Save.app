@@ -1,5 +1,5 @@
 /**
- * Shared HTTP plumbing for the DevDesk serverless API.
+ * Shared HTTP plumbing for the SaveDesk serverless API.
  *
  * Everything in here is deliberately dependency-free (only @vercel/node types,
  * which are compile-time only) so the Vercel build never has to resolve a

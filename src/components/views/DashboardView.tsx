@@ -60,7 +60,7 @@ export const DashboardView: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-5 rounded-2xl bg-gradient-to-br from-blue-600 to-indigo-700 text-white shadow-lg">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <h1 className="text-xl font-bold tracking-tight">DevDesk Workspace</h1>
+            <h1 className="text-xl font-bold tracking-tight">SaveDesk Workspace</h1>
             <Badge variant="default" className="bg-white/20 text-white border-white/30 text-[10px]">
               Offline-First
             </Badge>

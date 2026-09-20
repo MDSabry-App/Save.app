@@ -17,7 +17,7 @@ function createMainWindow({ isDev, restored }) {
     ...bounds,
     minWidth: MIN_WIDTH,
     minHeight: MIN_HEIGHT,
-    title: 'DevDesk',
+    title: 'SaveDesk',
     backgroundColor: '#0a0a0a',
     show: false,
     icon: path.join(__dirname, '..', '..', 'build', 'icon.png'),

@@ -1,5 +1,5 @@
 {
-  "name": "devdesk-security-audit",
+  "name": "savedesk-security-audit",
   "version": "1.0.0",
   "scripts": {
     "audit": "npm audit --audit-level=moderate",

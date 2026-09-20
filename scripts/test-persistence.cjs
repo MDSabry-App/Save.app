@@ -1,4 +1,4 @@
-// Full persistence + bridge test for the INSTALLED DevDesk app via CDP.
+// Full persistence + bridge test for the INSTALLED SaveDesk app via CDP.
 // Phase 1: seed one record in every section + run clipboard/HTTP/notification
 //          through the preload bridge, then quit the app.
 // Phase 2: relaunch the installed app and verify every record survived.
@@ -29,7 +29,7 @@ const seedScript = `
     const r = await window.desktopAPI.http.request({ method: 'GET', endpoint: 'https://api.openai.com/v1/models',
       headers: [{ key: 'Authorization', value: 'Bearer invalid' }], body: '', timeoutMs: 15000 });
     res.httpStatus = r.status; res.httpTime = r.timeMs; res.corsBlocked = !!r.corsBlocked;
-    res.notified = await window.desktopAPI.notifications.send('DevDesk', { body: 'persistence check' });
+    res.notified = await window.desktopAPI.notifications.send('SaveDesk', { body: 'persistence check' });
     res.appInfo = await window.desktopAPI.app.getInfo();
     res.platform = window.desktopAPI.platform;
   } catch (e) { res.err = String(e); }
