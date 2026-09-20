@@ -23,7 +23,7 @@ import {
   validEmail,
   validPassword,
   verifyPassword,
-} from './_lib/auth';
+} from './_lib/auth.js';
 import {
   applyCors,
   handlePreflight,
@@ -32,7 +32,7 @@ import {
   requireMethod,
   sendJson,
   serverError,
-} from './_lib/http';
+} from './_lib/http.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!applyCors(req, res)) return;

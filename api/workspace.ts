@@ -26,7 +26,7 @@ import {
   toEpochMs,
   validCiphertext,
   validIv,
-} from './_lib/auth';
+} from './_lib/auth.js';
 import {
   MAX_BLOB_CHARS,
   applyCors,
@@ -36,7 +36,7 @@ import {
   requireMethod,
   sendJson,
   serverError,
-} from './_lib/http';
+} from './_lib/http.js';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!applyCors(req, res)) return;
