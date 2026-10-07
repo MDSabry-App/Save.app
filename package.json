@@ -17,8 +17,12 @@
     "dev:desktop": "node scripts/electron-dev.cjs",
     "build": "vite build",
     "test:self": "node scripts/self-test.cjs",
+    "cap:sync": "npm run build && npx cap sync android",
+    "android:build": "npm run cap:sync && cd android && gradlew.bat assembleDebug",
+    "android:build:release": "npm run cap:sync && cd android && gradlew.bat assembleRelease",
     "pack:win": "npm run build && electron-builder --win --dir",
     "dist:win": "npm run build && electron-builder --win",
+    "desktop:build": "npm run build && electron-builder --win",
     "preview": "vite preview",
     "clean": "rm -rf dist release server.js",
     "lint": "tsc --noEmit",
@@ -43,9 +47,7 @@
       "target": [
         {
           "target": "nsis",
-          "arch": [
-            "x64"
-          ]
+          "arch": ["x64"]
         }
       ]
     },
